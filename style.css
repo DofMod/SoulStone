@@ -1,0 +1,28 @@
+normal {
+	font-family: Tahoma;
+	font-size: 16px;
+	color: #000000;
+	text-align: justify;
+	letterSpacing: 0.3;
+}
+center {
+	font-family: Tahoma;
+	font-size: 15px;
+	color: #000000;
+	text-align: center;
+	letterSpacing: 0.3;
+}
+monstres {
+	font-family: Tahoma;
+	font-size: 16px;
+	color: #000000;
+	text-align: justify;
+	letterSpacing: 0.3;
+}
+info {
+	font-family: Tahoma;
+	font-size: 15px;
+	color: #000000;
+	text-align: left;
+	font-weight : bold;
+}
