@@ -10,6 +10,7 @@ package
 	import d2hooks.GameFightStart;
 	import flash.display.Sprite;
 	import flash.utils.Dictionary;
+	import ui.SoulStoneUi;
 	
 	public class SoulStone extends Sprite
 	{
@@ -17,22 +18,25 @@ package
 		//::// Variables
 		//::///////////////////////////////////////////////////////////
 		
-		import ui.SoulStoneUi;
-		protected var soulStoneUi:SoulStoneUi;
+		// UI include
+		private const includes:Array = [SoulStoneUi];
 		
+		// Some constants
 		private static const UI_NAME:String = "soulstone";
 		private static const UI_INSTANCE_NAME:String = "soulstone";
 		
+		// APIs
 		public var uiApi:UiApi;
 		public var sysApi:SystemApi;
 		public var dataApi:DataApi;
 		
+		// Some globals
 		public static var allBoss:Dictionary = new Dictionary();
 		public static var allMonsters:Object;
 		public static var dicoMonsters:Dictionary = new Dictionary();
 		
 		//::///////////////////////////////////////////////////////////
-		//::// Méthodes publiques
+		//::// Public methods
 		//::///////////////////////////////////////////////////////////
 		
 		public function main():void
@@ -133,7 +137,7 @@ package
 		}
 		
 		//::///////////////////////////////////////////////////////////
-		//::// Evenements
+		//::// Events
 		//::///////////////////////////////////////////////////////////
 		
 		/**
