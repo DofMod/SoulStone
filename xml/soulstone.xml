@@ -6,49 +6,53 @@
 	<Import url="[config.mod.template.button]iconButton.xml" />
 	<Import url="[config.mod.template.button]checkBox.xml" />
 
-	
+
 	<Constants>
 		<!-- Enregistrement des chemins vers les assets d'interface et les css pour les textes -->
 		<Constant name="assets" value="[config.ui.skin]assets.swf|" />
-       	<Constant name="css" value="[config.ui.skin]css/" />
+		<Constant name="css" value="[config.ui.skin]css/" />
 		<Constant name="over_uri" value="[config.ui.skin]bitmap/over.png" />
 		<Constant name="selected_uri" value="[config.ui.skin]bitmap/selected.png" />
 		<Constant name="acceptDrop_uri" value="[config.ui.skin]bitmap/acceptDrop.png" />
 		<Constant name="refuseDrop_uri" value="[config.ui.skin]bitmap/refuseDrop.png" />
-		<Constant name="bitmap" value="[config.ui.skin]bitmap/" />	
-		
+		<Constant name="bitmap" value="[config.ui.skin]bitmap/" />
+
 		<Constant name="localCss" value="[config.mod.path]SoulStone/" />
 		<Constant name="localAssets" value="[config.mod.path]SoulStone/assets.swf|" />
-   	</Constants>
+	</Constants>
 
 	<!-- Conteneur principal, il permet de placer l'interface à l'endroit souhaité -->
 	<Container>
 		<mouseEnabled>true</mouseEnabled>
 		<Anchors>
 			<Anchor>
-				<AbsDimension x="10" y="560" />
+				<AbsDimension x="10"
+							  y="560" />
 			</Anchor>
 		</Anchors>
-		
+
 		<!-- Second container, il contient tous les elements pouvant être masqués -->
 		<Container name="ctr_main">
-			
+
 			<Texture>
 				<Size>
-					<AbsDimension x="400" y="300" />
+					<AbsDimension x="400"
+								  y="300" />
 				</Size>
 				<!--<bgColor>0xFFFFFF</bgColor>
-				<bgAlpha>0.4</bgAlpha>-->
+					 <bgAlpha>0.4</bgAlpha>-->
 				<uri>[local.assets]tx_darkBg</uri>
 			</Texture>
-			
+
 			<Grid name="maGrid">
 				<Size>
-				<AbsDimension x="360" y="90"/>
+					<AbsDimension x="360"
+								  y="90" />
 				</Size>
 				<Anchors>
 					<Anchor>
-						<AbsDimension x="20" y="120"/>
+						<AbsDimension x="20"
+									  y="120" />
 					</Anchor>
 				</Anchors>
 				<!--<scrollDisplay>always</scrollDisplay>-->
@@ -57,73 +61,84 @@
 				<!--<verticalScrollbarCss>[local.css]scrollBar.css</verticalScrollbarCss>-->
 				<slotWidth>90</slotWidth>
 				<slotHeight>90</slotHeight>
-				
+
 				<!-- Container decrivant une ligne de la grille -->
 				<Container name="ctr_stone">
 					<Size>
-						<AbsDimension x="90" y="90"/>
+						<AbsDimension x="90"
+									  y="90" />
 					</Size>
-					
+
 					<Texture name="itemTx">
 						<Anchors>
 							<Anchor>
-								<AbsDimension x="25" y="0"/>
+								<AbsDimension x="25"
+											  y="0" />
 							</Anchor>
 						</Anchors>
 
 						<Size>
-							<AbsDimension x="40" y="40"/>
+							<AbsDimension x="40"
+										  y="40" />
 						</Size>
 					</Texture>
-					
-					<Texture >
+
+					<Texture>
 						<Anchors>
 							<Anchor>
-								<AbsDimension x="25" y="0"/>
+								<AbsDimension x="25"
+											  y="0" />
 							</Anchor>
 						</Anchors>
 						<Size>
-							<AbsDimension x="40" y="40"/>
+							<AbsDimension x="40"
+										  y="40" />
 						</Size>
 						<uri>[local.assets]tx_slot</uri>
 					</Texture>
-					
+
 					<Label name="lb_reussite">
 						<Anchors>
 							<Anchor>
-								<AbsDimension x="0" y="40" />
+								<AbsDimension x="0"
+											  y="40" />
 							</Anchor>
 						</Anchors>
 						<Size>
-							<AbsDimension x="90" y="20" />
+							<AbsDimension x="90"
+										  y="20" />
 						</Size>
 						<css>[local.localCss]styles.css</css>
 						<cssClass>center</cssClass>
 					</Label>
-						
+
 					<iconButton name="btn_equip">
 						<Anchors>
 							<Anchor>
-								<AbsDimension x="5" y="65" />
+								<AbsDimension x="5"
+											  y="65" />
 							</Anchor>
 						</Anchors>
 						<Size>
-							<AbsDimension x="80" y="25" />
+							<AbsDimension x="80"
+										  y="25" />
 						</Size>
 						<uri>[local.assets]banner_btn_passer</uri>
 					</iconButton>
-					
+
 				</Container>
 			</Grid>
-			
+
 			<TextArea name="texta_monstre">
 				<Anchors>
 					<Anchor>
-						<AbsDimension x="10" y="210" />
+						<AbsDimension x="10"
+									  y="210" />
 					</Anchor>
 				</Anchors>
 				<Size>
-					<AbsDimension x="360" y="90" />
+					<AbsDimension x="360"
+								  y="90" />
 				</Size>
 				<css>[local.localCss]styles.css</css>
 				<cssClass>monstres</cssClass>
@@ -133,11 +148,13 @@
 			<Label name="lb_weapon">
 				<Anchors>
 					<Anchor>
-						<AbsDimension x="60" y="10" />
+						<AbsDimension x="60"
+									  y="10" />
 					</Anchor>
 				</Anchors>
 				<Size>
-					<AbsDimension x="300" y="20" />
+					<AbsDimension x="300"
+								  y="20" />
 				</Size>
 				<css>[local.localCss]styles.css</css>
 				<cssClass>normal</cssClass>
@@ -147,24 +164,28 @@
 			<Label name="lb_weapon_stats">
 				<Anchors>
 					<Anchor>
-						<AbsDimension x="60" y="35" />
+						<AbsDimension x="60"
+									  y="35" />
 					</Anchor>
 				</Anchors>
 				<Size>
-					<AbsDimension x="300" y="20" />
+					<AbsDimension x="300"
+								  y="20" />
 				</Size>
 				<css>[local.localCss]styles.css</css>
 				<cssClass>normal</cssClass>
 			</Label>
-			
+
 			<Label name="lb_info">
 				<Anchors>
 					<Anchor>
-						<AbsDimension x="10" y="65" />
+						<AbsDimension x="10"
+									  y="65" />
 					</Anchor>
 				</Anchors>
 				<Size>
-					<AbsDimension x="360" y="40" />
+					<AbsDimension x="360"
+								  y="40" />
 				</Size>
 				<css>[local.localCss]styles.css</css>
 				<cssClass>info</cssClass>
@@ -172,85 +193,97 @@
 				<multiline>true</multiline>
 				<wordWrap>true</wordWrap>
 			</Label>
-			
+
 			<Texture name="tx_slot_weapon">
 				<Anchors>
 					<Anchor>
-						<AbsDimension x="10" y="15" />
+						<AbsDimension x="10"
+									  y="15" />
 					</Anchor>
 				</Anchors>
 				<Size>
-					<AbsDimension x="44" y="44" />
+					<AbsDimension x="44"
+								  y="44" />
 				</Size>
 				<uri>[local.assets]tx_slotItem1</uri>
 			</Texture>
-				
+
 			<Texture name="tx_weapon">
 				<Anchors>
 					<Anchor>
-						<AbsDimension x="10" y="15" />
+						<AbsDimension x="10"
+									  y="15" />
 					</Anchor>
 				</Anchors>
 				<Size>
-					<AbsDimension x="44" y="44" />
+					<AbsDimension x="44"
+								  y="44" />
 				</Size>
 			</Texture>
 
 			<!-- Bouton pour masquer cette interface -->
 			<iconButton name="btn_close">
 				<Anchors>
-					<Anchor point="TOPRIGHT" relativePoint="TOPRIGHT">
-						<AbsDimension x="-5" y="0" />
+					<Anchor point="TOPRIGHT"
+							relativePoint="TOPRIGHT">
+						<AbsDimension x="-5"
+									  y="0" />
 					</Anchor>
 				</Anchors>
 				<Size>
-					<AbsDimension x="30" y="30" />
+					<AbsDimension x="30"
+								  y="30" />
 				</Size>
-				
+
 				<uri>[local.localAssets]soulstone</uri>
 			</iconButton>
-			
-			<!--<iconButton name="btn_test">
+
+			<!-- <iconButton name="btn_test">
 				<Anchors>
-					<Anchor >
-						<AbsDimension x="80" y="30" />
+					<Anchor>
+						<AbsDimension x="80"
+									  y="30" />
 					</Anchor>
 				</Anchors>
 				<Size>
-					<AbsDimension x="25" y="25" />
+					<AbsDimension x="25"
+								  y="25" />
 				</Size>
 				<uri>[local.assets]beta_btn_beta</uri>
 				<visible>true</visible>
-			</iconButton>-->
-			
+			</iconButton> -->
+
 			<Texture>
 				<Anchors>
 					<Anchor>
-						<AbsDimension x="310" y="210" />
+						<AbsDimension x="310"
+									  y="210" />
 					</Anchor>
 				</Anchors>
 				<Size>
-					<AbsDimension x="80" y="80" />
+					<AbsDimension x="80"
+								  y="80" />
 				</Size>
 				<uri>[local.assets]tchat_tx_smallTab_5</uri>
-			</Texture>			
-			
-		
+			</Texture>
+
 		</Container>
-			
+
 		<!-- Bouton pour afficher l'interface, invisible de base -->
 		<iconButton name="btn_open">
 			<Anchors>
-				<Anchor >
-					<AbsDimension x="0" y="250" />
+				<Anchor>
+					<AbsDimension x="0"
+								  y="250" />
 				</Anchor>
 			</Anchors>
 			<Size>
-				<AbsDimension x="60" y="60" />
+				<AbsDimension x="60"
+							  y="60" />
 			</Size>
-			
+
 			<uri>[local.localAssets]soulstone</uri>
 		</iconButton>
-		
+
 	</Container>
 </Definition>
