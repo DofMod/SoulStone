@@ -301,11 +301,8 @@ package ui
 				var item : ItemWrapper = data.wrapper as ItemWrapper;
 				componentsRef.itemTx.uri = dataApi.getItemIconUri(item.iconId);
 				//On affiche 100% si > à 100% sinon on affiche X (+Y)%
-				if (data.reussite + getBonusCapture(413) >= 100){
-					componentsRef.lb_reussite.text = data.reussite + "%" ;
-				}else{
-					componentsRef.lb_reussite.text = data.reussite + " (+" + getBonusCapture(413) + ")%" ;
-				}
+				componentsRef.lb_reussite.text = data.reussite + "%" ;
+				
 				uiApi.addComponentHook(componentsRef.btn_equip, "onRelease");
 				uiApi.addComponentHook(componentsRef.btn_equip, "onRollOver");
 				uiApi.addComponentHook(componentsRef.btn_equip, "onRollOut");
@@ -339,22 +336,6 @@ package ui
 			}			
 		}	
 		
-		public function getBonusCapture( sortId : int ) : int
-		{
-			//Retourne -1 si connait pas le sort,  sinon retourne le level du sort du joueur
-			var captureLevel: int = playCharApi.knowSpell(sortId);
-					
-			if (captureLevel != -1) {
-				var spell : Object = dataApi.getSpellItem(sortId, captureLevel);
-				for each ( var spellEffect : EffectInstanceDice in spell.effects) {
-					if (spellEffect.effectId == 750) { //ID d'effet du sort capture d'âme
-						return spellEffect.diceNum;
-					}
-				}
-			}
-			return 0;
-		}
-				
 		public function onRelease(target : Object) : void
 		{
 			switch (target)
