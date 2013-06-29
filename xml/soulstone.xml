@@ -43,7 +43,7 @@
 				<uri>[local.assets]tx_darkBg</uri>
 			</Texture>
 
-			<Grid name="maGrid">
+			<Grid name="grid_stones">
 				<Anchors>
 					<Anchor>
 						<AbsDimension x="20"

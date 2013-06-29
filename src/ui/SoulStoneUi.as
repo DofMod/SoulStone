@@ -67,7 +67,7 @@ package ui
 		public var ctr_main : GraphicContainer;
 		public var ctr_stone : GraphicContainer;
 		
-		public var maGrid : Grid;
+		public var grid_stones : Grid;
 		private var _btnRef : Dictionary = new Dictionary(false);
 		private var _lvlmax : int = 0;
 		private var _isInit : Boolean = false;
@@ -149,7 +149,7 @@ package ui
 			//On affiche (charge) l'interface
 			ctr_main.visible = true;
 			//On initialise des variables
-			maGrid.visible = true;
+			grid_stones.visible = true;
 			tx_weapon.uri = null;
 			var soulStone : ItemWrapper = getMyWeaponItem();
 			var advisedSoulStone : String = bestSoulStoneToUse(levelMax);
@@ -168,11 +168,11 @@ package ui
 					if (soulStone.name.search(advisedSoulStone) != -1) {
 						lb_info.text = "<b>La pierre d'âme équipée est de puissance optimale<\b>";
 						lb_info.colorText = 0x007F0E; //Vert
-						maGrid.visible = false;
+						grid_stones.visible = false;
 					}else {
 						lb_info.text = "<b>La pierre d'âme équipée est bonne sa puissance mais sa n'est pas optimale \nPierre optimale : <\b>" + advisedSoulStone;
 						lb_info.colorText = 0xFF6A00; //Orange
-						maGrid.visible = false;						
+						grid_stones.visible = false;
 					}
 				}else {
 					lb_info.text = "<b>Pierre équipée de puissance insuffisante \nPierre optimale : <\b>" + advisedSoulStone;
@@ -286,7 +286,7 @@ package ui
 				}
 			}
 			
-			maGrid.dataProvider = bestSoulStones;
+			grid_stones.dataProvider = bestSoulStones;
 			//for ( var k : int = 0 ; k < bestSoulStones.length ; k++ ) {
 				//sysApi.log(6,bestSoulStones[k].wrapper.name + " % : " + bestSoulStones[k].reussite + " lvl : " + bestSoulStones[k].puissance);
 			//}
