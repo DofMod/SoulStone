@@ -25,7 +25,6 @@ package ui
 	import d2data.Monster;
 	import d2data.Spell;
 	import d2data.SpellLevel;
-	import d2hooks.GameFightStart;
 	import d2hooks.UpdatePreFightersList;
 	import d2hooks.WeaponUpdate;
 	import flash.utils.getTimer;
@@ -87,7 +86,6 @@ package ui
 			//uiApi.addComponentHook(tx_slot_weapon, "onRollOver");
 			
 			sysApi.addHook(UpdatePreFightersList, onUpdatePreFightersList);
-			sysApi.addHook(GameFightStart, onGameFightStart);
 			sysApi.addHook(WeaponUpdate, onWeaponUpdate);
 		}
 		
@@ -358,12 +356,5 @@ package ui
 					}
 			}
 		}
-	
-		public function onGameFightStart ( ) : void
-		{
-			uiApi.unloadUi("soulstone");
-		}
-			
-	
-	}	
+	}
 }
