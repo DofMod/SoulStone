@@ -16,6 +16,9 @@
 		<Constant name="acceptDrop_uri" value="[config.ui.skin]bitmap/acceptDrop.png" />
 		<Constant name="refuseDrop_uri" value="[config.ui.skin]bitmap/refuseDrop.png" />
 		<Constant name="bitmap" value="[config.ui.skin]bitmap/" />	
+		
+		<Constant name="localCss" value="[config.mod.path]SoulStone/" />
+		<Constant name="localAssets" value="[config.mod.path]SoulStone/assets.swf|" />
    	</Constants>
 
 	<!-- Conteneur principal, il permet de placer l'interface à l'endroit souhaité -->
@@ -94,7 +97,7 @@
 						<Size>
 							<AbsDimension x="90" y="20" />
 						</Size>
-						<css>style.css</css>
+						<css>[local.localCss]styles.css</css>
 						<cssClass>center</cssClass>
 					</Label>
 						
@@ -122,7 +125,7 @@
 				<Size>
 					<AbsDimension x="360" y="90" />
 				</Size>
-				<css>style.css</css>
+				<css>[local.localCss]styles.css</css>
 				<cssClass>monstres</cssClass>
 				<hyperlinkEnabled>true</hyperlinkEnabled>
 			</TextArea>
@@ -136,7 +139,7 @@
 				<Size>
 					<AbsDimension x="300" y="20" />
 				</Size>
-				<css>style.css</css>
+				<css>[local.localCss]styles.css</css>
 				<cssClass>normal</cssClass>
 				<hyperlinkEnabled>true</hyperlinkEnabled>
 			</Label>
@@ -150,7 +153,7 @@
 				<Size>
 					<AbsDimension x="300" y="20" />
 				</Size>
-				<css>style.css</css>
+				<css>[local.localCss]styles.css</css>
 				<cssClass>normal</cssClass>
 			</Label>
 			
@@ -163,7 +166,7 @@
 				<Size>
 					<AbsDimension x="360" y="40" />
 				</Size>
-				<css>style.css</css>
+				<css>[local.localCss]styles.css</css>
 				<cssClass>info</cssClass>
 				<hyperlinkEnabled>true</hyperlinkEnabled>
 				<multiline>true</multiline>
@@ -203,9 +206,8 @@
 				<Size>
 					<AbsDimension x="30" y="30" />
 				</Size>
-				<!-- <uri>[local.assets]btn_fermer</uri> -->
-				<uri>83024.swf</uri>
-				<visible>true</visible>
+				
+				<uri>[local.localAssets]soulstone</uri>
 			</iconButton>
 			
 			<!--<iconButton name="btn_test">
@@ -246,9 +248,8 @@
 			<Size>
 				<AbsDimension x="60" y="60" />
 			</Size>
-			<!--<uri>[local.assets]btn_plus_square</uri>-->
-			<uri>83024.swf</uri>
-			<visible>false</visible>
+			
+			<uri>[local.localAssets]soulstone</uri>
 		</iconButton>
 		
 	</Container>
