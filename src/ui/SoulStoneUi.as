@@ -332,15 +332,20 @@ package ui
 			//}
 		}
 		
+		/**
+		 * Display the weapon equiped. Fill the associated fields.
+		 * 
+		 * @param	weapon	The weapon equiped.
+		 */
 		private function displayWeapon(weapon:ItemWrapper):void
 		{
-			//Si on a une arme équipée (les pierres d'âme ne comptent pas comme un weapon)
 			if (weapon != null)
 			{
 				lb_weapon.text = chatApi.newChatItem(weapon);
 				lb_weapon_stats.text = "";
 				tx_weapon.uri = weapon.iconUri;
 				
+				// 83 : Soulstone
 				if (weapon.type.id == 83)
 				{
 					for each (var effect:EffectInstance in weapon.effects)
@@ -370,6 +375,7 @@ package ui
 			
 			displayWeapon(weapon);
 			
+			// 83 : Soulstone
 			if (weapon.type.id == 83)
 			{
 				var soulStone:ItemWrapper = weapon;
