@@ -284,6 +284,11 @@ package ui
 			return advisedSoulStone;
 		}
 		
+		/**
+		 * Select the best soulstones and send the to display.
+		 * 
+		 * @param	levelMax	Hight lvl among the monsters.
+		 */
 		private function showGrid(levelMax:int):void
 		{
 			var soulstones:Dictionary = new Dictionary();
