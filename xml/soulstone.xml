@@ -68,7 +68,7 @@
 									  y="90" />
 					</Size>
 
-					<Texture name="itemTx">
+					<Texture name="tx_item">
 						<Anchors>
 							<Anchor>
 								<AbsDimension x="25"
@@ -96,7 +96,7 @@
 						<uri>[local.assets]tx_slot</uri>
 					</Texture>
 
-					<Label name="lb_reussite">
+					<Label name="lb_success">
 						<Anchors>
 							<Anchor>
 								<AbsDimension x="0"
@@ -130,7 +130,7 @@
 				</Container>
 			</Grid>
 
-			<TextArea name="texta_monstre">
+			<TextArea name="texta_monster">
 				<Anchors>
 					<Anchor>
 						<AbsDimension x="10"

@@ -59,7 +59,7 @@ package ui
 		
 		public var grid_stones:Grid;
 		
-		public var texta_monstre:TextArea;
+		public var texta_monster:TextArea;
 		
 		private var _btnRef:Dictionary = new Dictionary(false);
 		private var _monsterMaxLevel:int = 0;
@@ -112,7 +112,7 @@ package ui
 			}
 			
 			//Variables et Initialisation
-			texta_monstre.text = "";
+			texta_monster.text = "";
 			_monsterMaxLevel = 0;
 			_isArchiBoss = false;
 			var matchMonsters:Array = new Array();
@@ -152,7 +152,7 @@ package ui
 			matchMonsters.sortOn("niveau", Array.NUMERIC)
 			for (var y:int = matchMonsters.length - 1; y >= 0; y--)
 			{
-				texta_monstre.appendText(matchMonsters[y].nom + " niv. " + matchMonsters[y].niveau);
+				texta_monster.appendText(matchMonsters[y].nom + " niv. " + matchMonsters[y].niveau);
 			}
 			
 			//Si il y a un Boss ou un Archi dans le groupe
@@ -174,20 +174,20 @@ package ui
 			{
 				//sysApi.log(2, "item : " + data.wrapper.name);
 				var item:ItemWrapper = data.wrapper as ItemWrapper;
-				componentsRef.itemTx.uri = dataApi.getItemIconUri(item.iconId);
+				componentsRef.tx_item.uri = dataApi.getItemIconUri(item.iconId);
 				//On affiche 100% si > à 100% sinon on affiche X (+Y)%
-				componentsRef.lb_reussite.text = data.reussite + "%";
+				componentsRef.lb_success.text = data.reussite + "%";
 				
 				uiApi.addComponentHook(componentsRef.btn_equip, "onRelease");
 				uiApi.addComponentHook(componentsRef.btn_equip, "onRollOver");
 				uiApi.addComponentHook(componentsRef.btn_equip, "onRollOut");
 				componentsRef.btn_equip.visible = true;
-				componentsRef.lb_reussite..visible = true;
+				componentsRef.lb_success.visible = true;
 			}
 			else
 			{
 				componentsRef.btn_equip.visible = false;
-				componentsRef.lb_reussite..visible = false;
+				componentsRef.lb_success.visible = false;
 			}
 		}
 		
