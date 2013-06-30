@@ -388,7 +388,7 @@ package ui
 			
 			displayWeapon(weapon);
 			
-			if (weapon.type.id == ItemTypeIdEnum.SOULSTONE)
+			if (weapon && weapon.type.id == ItemTypeIdEnum.SOULSTONE)
 			{
 				for each (var effect:EffectInstance in weapon.effects)
 				{
