@@ -120,6 +120,12 @@ package ui
 			//On parcours les index des combattants
 			for each (var fighterId:int in fightApi.getFighters())
 			{
+				var monsterGenericId:int = fightApi.getMonsterId(fighterId);
+				if (monsterGenericId == -1)
+				{
+					continue;
+				}
+				
 				//Permet de récupérer le niveau du monstre le plus haut (leur index va de -1 à -8)
 				var level:int = fightApi.getFighterLevel(fighterId);
 				if ((fighterId < 0) && (level >= _monsterMaxLevel))
