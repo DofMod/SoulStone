@@ -212,7 +212,7 @@ package ui
 				default:
 					if (target is Slot && target.data != null)
 					{
-						sysApi.sendAction(new ObjectSetPosition(target.data.item.objectUID, CharacterInventoryPositionEnum.ACCESSORY_POSITION_WEAPON));
+						sysApi.sendAction(new ObjectSetPosition(target.data.objectUID, CharacterInventoryPositionEnum.ACCESSORY_POSITION_WEAPON));
 					}
 			}
 		}
