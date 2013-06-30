@@ -14,6 +14,7 @@ package ui
 	import d2components.GraphicContainer;
 	import d2components.Grid;
 	import d2components.Label;
+	import d2components.Slot;
 	import d2components.TextArea;
 	import d2components.Texture;
 	import d2data.EffectInstance;
@@ -64,7 +65,6 @@ package ui
 		
 		public var texta_monster:TextArea;
 		
-		private var _btnRef:Dictionary = new Dictionary(false);
 		private var _monsterMaxLevel:int = 0;
 		private var _isFightWithArchiOrBoss:Boolean;
 		
@@ -154,27 +154,19 @@ package ui
 		
 		public function updateEntry(data:*, componentsRef:*, selected:Boolean):void
 		{
-			//On affecte data (issue de bestSoulStone) dans le dictionnaire où on référence les boutons de la grid
-			_btnRef[componentsRef.btn_equip] = data;
-			
 			if (data !== null)
 			{
-				//sysApi.log(2, "item : " + data.wrapper.name);
-				var item:ItemWrapper = data.item as ItemWrapper;
-				componentsRef.tx_item.uri = dataApi.getItemIconUri(item.iconId);
-				//On affiche 100% si > à 100% sinon on affiche X (+Y)%
+				componentsRef.slot_soulstone.data = data.item;
 				componentsRef.lb_success.text = data.probability + "%";
 				
-				uiApi.addComponentHook(componentsRef.btn_equip, "onRelease");
-				uiApi.addComponentHook(componentsRef.btn_equip, "onRollOver");
-				uiApi.addComponentHook(componentsRef.btn_equip, "onRollOut");
-				
-				componentsRef.btn_equip.visible = true;
+				uiApi.addComponentHook(componentsRef.slot_soulstone, "onRelease");
+				uiApi.addComponentHook(componentsRef.slot_soulstone, "onRollOver");
+				uiApi.addComponentHook(componentsRef.slot_soulstone, "onRollOut");
+
 				componentsRef.lb_success.visible = true;
 			}
 			else
 			{
-				componentsRef.btn_equip.visible = false;
 				componentsRef.lb_success.visible = false;
 			}
 		}
@@ -184,10 +176,9 @@ package ui
 			switch (target)
 			{
 				default:
-					if (_btnRef[target] !== null)
+					if (target is Slot && target.data != null)
 					{
-						var data:* = _btnRef[target];
-						var toolTip:Object = uiApi.textTooltipInfo(data.wrapper.name + " (" + data.puissance + ")");
+						var toolTip:Object = uiApi.textTooltipInfo(target.data.item.name + " (" + target.data.power + ")");
 						uiApi.showTooltip(toolTip, target, false, "standard", 7, 1, 3);
 					}
 			}
@@ -216,11 +207,9 @@ package ui
 					
 					break;
 				default:
-					if (_btnRef[target] !== null)
+					if (target is Slot && target.data != null)
 					{
-						var data:* = _btnRef[target];
-						sysApi.sendAction(new ObjectSetPosition(data.wrapper.objectUID, 1, 1));
-						//sysApi.log(16, data.wrapper.name);
+						sysApi.sendAction(new ObjectSetPosition(target.data.item.objectUID, 1, 1));
 					}
 			}
 		}

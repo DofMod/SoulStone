@@ -68,20 +68,7 @@
 									  y="90" />
 					</Size>
 
-					<Texture name="tx_item">
-						<Anchors>
-							<Anchor>
-								<AbsDimension x="25"
-											  y="0" />
-							</Anchor>
-						</Anchors>
-						<Size>
-							<AbsDimension x="40"
-										  y="40" />
-						</Size>
-					</Texture>
-
-					<Texture>
+					<Slot name="slot_soulstone">
 						<Anchors>
 							<Anchor>
 								<AbsDimension x="25"
@@ -93,8 +80,13 @@
 										  y="40" />
 						</Size>
 
-						<uri>[local.assets]tx_slot</uri>
-					</Texture>
+						<emptyTexture>[local.assets]tx_slotDofus</emptyTexture>
+						<css>[local.css]normal.css</css>
+						<highlightTexture>[local.over_uri]</highlightTexture>
+						<selectedTexture>[local.selected_uri]</selectedTexture>
+						<acceptDragTexture>[local.acceptDrop_uri]</acceptDragTexture>
+						<refuseDragTexture>[local.refuseDrop_uri]</refuseDragTexture>
+					</Slot>
 
 					<Label name="lb_success">
 						<Anchors>
@@ -111,21 +103,6 @@
 						<css>[local.localCss]styles.css</css>
 						<cssClass>center</cssClass>
 					</Label>
-
-					<iconButton name="btn_equip">
-						<Anchors>
-							<Anchor>
-								<AbsDimension x="5"
-											  y="65" />
-							</Anchor>
-						</Anchors>
-						<Size>
-							<AbsDimension x="80"
-										  y="25" />
-						</Size>
-						
-						<uri>[local.assets]banner_btn_passer</uri>
-					</iconButton>
 
 				</Container>
 			</Grid>
