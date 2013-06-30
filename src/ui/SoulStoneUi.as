@@ -23,6 +23,7 @@ package ui
 	import d2data.Monster;
 	import d2enums.CharacterInventoryPositionEnum;
 	import d2enums.ComponentHookList;
+	import d2enums.LocationEnum;
 	import d2hooks.UpdatePreFightersList;
 	import d2hooks.WeaponUpdate;
 	import enums.EffectIdEnum;
@@ -180,8 +181,8 @@ package ui
 				default:
 					if (target is Slot && target.data != null)
 					{
-						var toolTip:Object = uiApi.textTooltipInfo(target.data.item.name + " (" + target.data.power + ")");
-						uiApi.showTooltip(toolTip, target, false, "standard", 7, 1, 3);
+						var tooltip:Object = uiApi.textTooltipInfo(target.data.name);
+						uiApi.showTooltip(tooltip, target, false, "standard", LocationEnum.POINT_BOTTOM, LocationEnum.POINT_TOP, 3, null, null, null, "TextInfo");
 					}
 			}
 		}
