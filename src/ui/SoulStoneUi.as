@@ -196,13 +196,14 @@ package ui
 			}
 		}
 		
+		/**
+		 * Mouse rollout callback.
+		 * 
+		 * @param	target
+		 */
 		public function onRollOut(target:Object):void
 		{
-			switch (target)
-			{
-				default:
-					uiApi.hideTooltip();
-			}
+			uiApi.hideTooltip();
 		}
 		
 		public function onRelease(target:Object):void
