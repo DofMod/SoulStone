@@ -97,27 +97,20 @@ package ui
 		
 		public function onUpdatePreFightersList(newFighterId:int = 0):void
 		{
-			//var t0 : int = getTimer();
 			if (_isInit)
 			{
-				//sysApi.log(16, "On a déjà chargé les infos sur les mobs");
-				
 				return;
 			}
 			if (newFighterId != playCharApi.id())
 			{
-				//sysApi.log(16, "L'id n'est pas celui du joueur");
-				
 				return;
 			}
 			
-			//Variables et Initialisation
 			texta_monster.text = "";
 			_monsterMaxLevel = 0;
 			_isArchiBoss = false;
 			var matchMonsters:Array = new Array();
 			
-			//On parcours les index des combattants
 			for each (var fighterId:int in fightApi.getFighters())
 			{
 				var monsterGenericId:int = fightApi.getMonsterId(fighterId);
@@ -137,8 +130,6 @@ package ui
 					_monsterMaxLevel = monsterLevel;
 				}
 				
-				//sysApi.log(8, "fighterName : " + fightApi.getFighterName(fighterId));
-				
 				var monster:Monster = dataApi.getMonsterFromId(monsterGenericId);
 				
 				if (monster && (monster.isMiniBoss || monster.isBoss))
@@ -148,21 +139,18 @@ package ui
 				}
 			}
 			
-			//On trie le tableau en fonction du niveau des monstres pour les afficher triés par level décroissant
 			matchMonsters.sortOn("niveau", Array.NUMERIC)
 			for (var y:int = matchMonsters.length - 1; y >= 0; y--)
 			{
 				texta_monster.appendText(matchMonsters[y].nom + " niv. " + matchMonsters[y].niveau);
 			}
 			
-			//Si il y a un Boss ou un Archi dans le groupe
 			if (_isArchiBoss)
 			{
 				updateWeapon(_monsterMaxLevel);
 			}
 			
 			_isInit = true;
-			//sysApi.log(16, "onUpdatePreFightersList : " + (getTimer() - t0) + "ms");
 		}
 		
 		public function updateEntry(data:*, componentsRef:*, selected:Boolean):void
