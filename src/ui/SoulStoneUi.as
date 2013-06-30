@@ -22,6 +22,7 @@ package ui
 	import d2data.Monster;
 	import d2hooks.UpdatePreFightersList;
 	import d2hooks.WeaponUpdate;
+	import enums.EffectIdEnum;
 	import flash.utils.Dictionary;
 	
 	/**
@@ -350,7 +351,7 @@ package ui
 				{
 					for each (var effect:EffectInstance in weapon.effects)
 					{
-						if (effect is EffectInstanceInteger)
+						if (effect.effectId == EffectIdEnum.SOUL_CAPTURE)
 						{
 							lb_weapon_stats.text = effect.description;
 						}
