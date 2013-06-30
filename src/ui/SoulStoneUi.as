@@ -63,7 +63,7 @@ package ui
 		
 		private var _btnRef:Dictionary = new Dictionary(false);
 		private var _monsterMaxLevel:int = 0;
-		private var _isArchiBoss:Boolean;
+		private var _isFightWithArchiOrBoss:Boolean;
 		
 		//::///////////////////////////////////////////////////////////
 		//::// Public methods
@@ -88,7 +88,7 @@ package ui
 		public function onWeaponUpdate():void
 		{
 			//Si le joueur change d'arme lui même, on met à jour
-			if (_isArchiBoss)
+			if (_isFightWithArchiOrBoss)
 			{
 				updateWeapon(_monsterMaxLevel);
 			}
@@ -97,7 +97,7 @@ package ui
 		public function onUpdatePreFightersList(newFighterId:int = 0):void
 		{
 			_monsterMaxLevel = 0;
-			_isArchiBoss = false;
+			_isFightWithArchiOrBoss = false;
 			var matchMonsters:Array = new Array();
 			
 			for each (var fighterId:int in fightApi.getFighters())
@@ -125,7 +125,7 @@ package ui
 				{
 					matchMonsters.push({"level":monsterLevel, "name":monster.name});
 					
-					_isArchiBoss = true;
+					_isFightWithArchiOrBoss = true;
 				}
 			}
 			
