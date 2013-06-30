@@ -95,7 +95,7 @@ package ui
 			}
 		}
 		
-		public function onUpdatePreFightersList(newFighterId:int):void
+		public function onUpdatePreFightersList(newFighterId:int = 0):void
 		{
 			//var t0 : int = getTimer();
 			if (_isInit)
