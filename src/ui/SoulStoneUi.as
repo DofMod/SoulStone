@@ -131,11 +131,10 @@ package ui
 					continue;
 				}
 				
-				//Permet de récupérer le niveau du monstre le plus haut (leur index va de -1 à -8)
-				var level:int = fightApi.getFighterLevel(fighterId);
-				if ((fighterId < 0) && (level >= _monsterMaxLevel))
+				var monsterLevel:int = fightApi.getFighterLevel(fighterId);
+				if (monsterLevel >= _monsterMaxLevel)
 				{
-					_monsterMaxLevel = level;
+					_monsterMaxLevel = monsterLevel;
 				}
 				
 				//sysApi.log(8, "fighterName : " + fightApi.getFighterName(fighterId));
@@ -145,7 +144,7 @@ package ui
 				//On regarde si le monstre existe (en premier) et s'il est un archi (race 78) ou un boss
 				if (monster && monster.race == 78 || monster && SoulStone.allBoss[monster.id] != null)
 				{
-					matchMonsters.push({niveau: level, nom: monster.name})
+					matchMonsters.push({niveau: monsterLevel, nom: monster.name})
 					_isArchiBoss = true;
 				}
 			}
