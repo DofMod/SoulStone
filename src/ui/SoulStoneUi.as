@@ -272,7 +272,7 @@ package ui
 			
 			displayWeapon(weapon);
 			
-			if (weapon && weapon.type.id == ItemTypeIdEnum.SOULSTONE)
+			if (weapon && weapon.typeId == ItemTypeIdEnum.SOULSTONE)
 			{
 				for each (var effect:EffectInstance in weapon.effects)
 				{
@@ -336,7 +336,7 @@ package ui
 				lb_weapon_stats.text = "";
 				tx_weapon.uri = weapon.iconUri;
 				
-				if (weapon.type.id == ItemTypeIdEnum.SOULSTONE)
+				if (weapon.typeId == ItemTypeIdEnum.SOULSTONE)
 				{
 					for each (var effect:EffectInstance in weapon.effects)
 					{
@@ -419,7 +419,7 @@ package ui
 			for each (var item:ItemWrapper in storageApi.getViewContent("storageEquipment"))
 			{
 				// 9718 : id of the Kralamour's soulstone
-				if (item.type.id == ItemTypeIdEnum.SOULSTONE && item.id != 9718)
+				if (item.typeId == ItemTypeIdEnum.SOULSTONE && item.id != 9718)
 				{
 					for each (var effect:EffectInstance in item.effects)
 					{
