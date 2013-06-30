@@ -96,7 +96,6 @@ package ui
 		
 		public function onUpdatePreFightersList(newFighterId:int = 0):void
 		{
-			texta_monster.text = "";
 			_monsterMaxLevel = 0;
 			_isArchiBoss = false;
 			var matchMonsters:Array = new Array();
@@ -124,19 +123,23 @@ package ui
 				
 				if (monster && (monster.isMiniBoss || monster.isBoss))
 				{
-					matchMonsters.push({niveau: monsterLevel, nom: monster.name})
+					matchMonsters.push({"level":monsterLevel, "name":monster.name});
+					
 					_isArchiBoss = true;
 				}
 			}
 			
-			matchMonsters.sortOn("niveau", Array.NUMERIC)
-			for (var y:int = matchMonsters.length - 1; y >= 0; y--)
-			{
-				texta_monster.appendText(matchMonsters[y].nom + " niv. " + matchMonsters[y].niveau);
-			}
+			texta_monster.text = "";
 			
-			if (_isArchiBoss)
+			if (matchMonsters.length > 0)
 			{
+				matchMonsters.sortOn("level", Array.NUMERIC);
+				
+				for each (var matchMonster:Object in matchMonsters)
+				{
+					texta_monster.appendText(matchMonster.name + " niv. " + matchMonster.level);
+				}
+				
 				updateWeapon(_monsterMaxLevel);
 			}
 		}
