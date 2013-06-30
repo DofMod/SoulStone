@@ -139,10 +139,9 @@ package ui
 				
 				//sysApi.log(8, "fighterName : " + fightApi.getFighterName(fighterId));
 				
-				var monster:Monster = SoulStone.dicoMonsters[fightApi.getFighterName(fighterId)];
+				var monster:Monster = dataApi.getMonsterFromId(monsterGenericId);
 				
-				//On regarde si le monstre existe (en premier) et s'il est un archi (race 78) ou un boss
-				if (monster && monster.race == 78 || monster && SoulStone.allBoss[monster.id] != null)
+				if (monster && (monster.isMiniBoss || monster.isBoss))
 				{
 					matchMonsters.push({niveau: monsterLevel, nom: monster.name})
 					_isArchiBoss = true;
