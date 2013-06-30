@@ -21,6 +21,7 @@ package ui
 	import d2data.EffectInstanceInteger;
 	import d2data.ItemWrapper;
 	import d2data.Monster;
+	import d2enums.ComponentHookList;
 	import d2hooks.UpdatePreFightersList;
 	import d2hooks.WeaponUpdate;
 	import enums.EffectIdEnum;
@@ -76,9 +77,9 @@ package ui
 		{
 			displayUI(false);
 			
-			uiApi.addComponentHook(btn_close, "onRelease");
-			uiApi.addComponentHook(btn_open, "onRelease");
-			//uiApi.addComponentHook(tx_slot_weapon, "onRollOver");
+			uiApi.addComponentHook(btn_close, ComponentHookList.ON_RELEASE);
+			uiApi.addComponentHook(btn_open, ComponentHookList.ON_RELEASE);
+			//uiApi.addComponentHook(tx_slot_weapon, ComponentHookList.ON_RELEASE);
 			
 			sysApi.addHook(UpdatePreFightersList, onUpdatePreFightersList);
 			sysApi.addHook(WeaponUpdate, onWeaponUpdate);
@@ -159,9 +160,9 @@ package ui
 				componentsRef.slot_soulstone.data = data.item;
 				componentsRef.lb_success.text = data.probability + "%";
 				
-				uiApi.addComponentHook(componentsRef.slot_soulstone, "onRelease");
-				uiApi.addComponentHook(componentsRef.slot_soulstone, "onRollOver");
-				uiApi.addComponentHook(componentsRef.slot_soulstone, "onRollOut");
+				uiApi.addComponentHook(componentsRef.slot_soulstone, ComponentHookList.ON_RELEASE);
+				uiApi.addComponentHook(componentsRef.slot_soulstone, ComponentHookList.ON_ROLL_OVER);
+				uiApi.addComponentHook(componentsRef.slot_soulstone, ComponentHookList.ON_ROLL_OUT);
 
 				componentsRef.lb_success.visible = true;
 			}
