@@ -258,6 +258,104 @@ package ui
 		}
 		
 		/**
+		 * Update weapon's fields and display grid if needed.
+		 * 
+		 * @param	levelMax	Level max of the monsters.
+		 */
+		private function updateWeapon(levelMax:int):void
+		{
+			grid_stones.visible = true;
+			tx_weapon.uri = null;
+			
+			var weapon:ItemWrapper = playCharApi.getWeapon();
+			var advisedSoulStone:String = bestSoulStoneToUse(levelMax);
+			
+			displayWeapon(weapon);
+			
+			if (weapon && weapon.type.id == ItemTypeIdEnum.SOULSTONE)
+			{
+				for each (var effect:EffectInstance in weapon.effects)
+				{
+					if (effect.effectId == EffectIdEnum.SOUL_CAPTURE)
+					{
+						var puissanceSoulStone:Object = effect.parameter2;
+						
+						// parameter0 : %chance of capture
+						// parameter1 : ?
+						// parameter2 : Max level of capture
+					}
+				}
+				
+				if (puissanceSoulStone >= levelMax)
+				{
+					//On vérifie si la puissance de la pierre (qui est suffisante) est optimale
+					if (weapon.name.search(advisedSoulStone) != -1)
+					{
+						lb_info.text = "<b>La pierre d'âme équipée est de puissance optimale<\b>";
+						lb_info.colorText = 0x007F0E; // Green
+						
+						grid_stones.visible = false;
+					}
+					else
+					{
+						lb_info.text = "<b>La pierre d'âme équipée est bonne sa puissance mais sa n'est pas optimale \nPierre optimale : <\b>" + advisedSoulStone;
+						lb_info.colorText = 0xFF6A00; // Orange
+						
+						grid_stones.visible = false;
+					}
+				}
+				else
+				{
+					lb_info.text = "<b>Pierre équipée de puissance insuffisante \nPierre optimale : <\b>" + advisedSoulStone;
+					lb_info.colorText = 0xFF0000; // Red
+					
+					showGrid(levelMax);
+				}
+			}
+			else
+			{
+				lb_info.text = "<b>Pas de pierre équipée \nPierre optimale : <\b>" + advisedSoulStone;
+				lb_info.colorText = 0xFF0000; // Red
+				
+				showGrid(levelMax);
+			}
+			
+			displayUI(true);
+		}
+		
+		/**
+		 * Display the weapon equiped. Fill the associated fields.
+		 * 
+		 * @param	weapon	The weapon equiped.
+		 */
+		private function displayWeapon(weapon:ItemWrapper):void
+		{
+			if (weapon != null)
+			{
+				lb_weapon.text = chatApi.newChatItem(weapon);
+				lb_weapon_stats.text = "";
+				tx_weapon.uri = weapon.iconUri;
+				
+				if (weapon.type.id == ItemTypeIdEnum.SOULSTONE)
+				{
+					for each (var effect:EffectInstance in weapon.effects)
+					{
+						if (effect.effectId == EffectIdEnum.SOUL_CAPTURE)
+						{
+							lb_weapon_stats.text = effect.description;
+						}
+					}
+				}
+			}
+			else
+			{
+				lb_weapon.text = "Aucun CàC équipé";
+				lb_weapon_stats.text = "";
+				tx_weapon.uri = null;
+			}
+		}
+		
+		/**
 		 * Get best Soulstone name prefix.
 		 * 
 		 * @param	levelMaxMonsters	The hight level among the monsters.
@@ -353,104 +451,6 @@ package ui
 			}
 			
 			grid_stones.dataProvider = soulstoneList;
-		}
-		
-		/**
-		 * Display the weapon equiped. Fill the associated fields.
-		 * 
-		 * @param	weapon	The weapon equiped.
-		 */
-		private function displayWeapon(weapon:ItemWrapper):void
-		{
-			if (weapon != null)
-			{
-				lb_weapon.text = chatApi.newChatItem(weapon);
-				lb_weapon_stats.text = "";
-				tx_weapon.uri = weapon.iconUri;
-				
-				if (weapon.type.id == ItemTypeIdEnum.SOULSTONE)
-				{
-					for each (var effect:EffectInstance in weapon.effects)
-					{
-						if (effect.effectId == EffectIdEnum.SOUL_CAPTURE)
-						{
-							lb_weapon_stats.text = effect.description;
-						}
-					}
-				}
-			}
-			else
-			{
-				lb_weapon.text = "Aucun CàC équipé";
-				lb_weapon_stats.text = "";
-				tx_weapon.uri = null;
-			}
-		}
-		
-		/**
-		 * Update weapon's fields and display grid if needed.
-		 * 
-		 * @param	levelMax	Level max of the monsters.
-		 */
-		private function updateWeapon(levelMax:int):void
-		{
-			grid_stones.visible = true;
-			tx_weapon.uri = null;
-			
-			var weapon:ItemWrapper = playCharApi.getWeapon();
-			var advisedSoulStone:String = bestSoulStoneToUse(levelMax);
-			
-			displayWeapon(weapon);
-			
-			if (weapon && weapon.type.id == ItemTypeIdEnum.SOULSTONE)
-			{
-				for each (var effect:EffectInstance in weapon.effects)
-				{
-					if (effect.effectId == EffectIdEnum.SOUL_CAPTURE)
-					{
-						var puissanceSoulStone:Object = effect.parameter2;
-						
-						// parameter0 : %chance of capture
-						// parameter1 : ?
-						// parameter2 : Max level of capture
-					}
-				}
-				
-				if (puissanceSoulStone >= levelMax)
-				{
-					//On vérifie si la puissance de la pierre (qui est suffisante) est optimale
-					if (weapon.name.search(advisedSoulStone) != -1)
-					{
-						lb_info.text = "<b>La pierre d'âme équipée est de puissance optimale<\b>";
-						lb_info.colorText = 0x007F0E; // Green
-						
-						grid_stones.visible = false;
-					}
-					else
-					{
-						lb_info.text = "<b>La pierre d'âme équipée est bonne sa puissance mais sa n'est pas optimale \nPierre optimale : <\b>" + advisedSoulStone;
-						lb_info.colorText = 0xFF6A00; // Orange
-						
-						grid_stones.visible = false;
-					}
-				}
-				else
-				{
-					lb_info.text = "<b>Pierre équipée de puissance insuffisante \nPierre optimale : <\b>" + advisedSoulStone;
-					lb_info.colorText = 0xFF0000; // Red
-					
-					showGrid(levelMax);
-				}
-			}
-			else
-			{
-				lb_info.text = "<b>Pas de pierre équipée \nPierre optimale : <\b>" + advisedSoulStone;
-				lb_info.colorText = 0xFF0000; // Red
-				
-				showGrid(levelMax);
-			}
-			
-			displayUI(true);
 		}
 	}
 }
