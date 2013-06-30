@@ -244,22 +244,6 @@
 				<uri>[local.localAssets]soulstone</uri>
 			</iconButton>
 
-			<!-- <iconButton name="btn_test">
-				<Anchors>
-					<Anchor>
-						<AbsDimension x="80"
-									  y="30" />
-					</Anchor>
-				</Anchors>
-				<Size>
-					<AbsDimension x="25"
-								  y="25" />
-				</Size>
-
-				<uri>[local.assets]beta_btn_beta</uri>
-				<visible>true</visible>
-			</iconButton> -->
-
 			<Texture>
 				<Anchors>
 					<Anchor>

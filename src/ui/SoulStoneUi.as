@@ -61,7 +61,6 @@ package ui
 		
 		public var btn_close : ButtonContainer;
 		public var btn_open : ButtonContainer;
-		public var btn_test : ButtonContainer;
 		
 		public var ctr_main : GraphicContainer;
 		public var ctr_stone : GraphicContainer;
@@ -82,7 +81,6 @@ package ui
 
 			uiApi.addComponentHook(btn_close, "onRelease");
 			uiApi.addComponentHook(btn_open, "onRelease");
-			uiApi.addComponentHook(btn_test, "onRelease");
 			//uiApi.addComponentHook(tx_slot_weapon, "onRollOver");
 			
 			sysApi.addHook(UpdatePreFightersList, onUpdatePreFightersList);
@@ -338,8 +336,6 @@ package ui
 		{
 			switch (target)
 			{
-				case btn_test:
-					break;	
 				case btn_close:
 					ctr_main.visible = false;
 					btn_open.visible = true;
