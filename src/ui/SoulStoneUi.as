@@ -385,11 +385,16 @@ package ui
 			//Si on a une pierre d'âme équipée ( chargée dans getMyWeaponItem() )
 			if (weapon.type.id == ItemTypeIdEnum.SOULSTONE)
 			{
-				//On parcours les effets de la pierre pour récupérer sa puissance
-				for each (var soulStoneEffect:EffectInstanceInteger in weapon.effects)
+				for each (var effect:EffectInstance in weapon.effects)
 				{
-					//sysApi.log(8, "effect.description : " + soulStoneEffect.description);
-					var puissanceSoulStone:Object = soulStoneEffect.parameter2
+					if (effect.effectId == EffectIdEnum.SOUL_CAPTURE)
+					{
+						var puissanceSoulStone:Object = effect.parameter2;
+						
+						// parameter0 : %chance of capture
+						// parameter1 : ?
+						// parameter2 : Max level of capture
+					}
 				}
 				
 				//Si la puissance est suffisante
