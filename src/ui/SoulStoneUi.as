@@ -170,6 +170,7 @@ package ui
 			}
 			else
 			{
+				componentsRef.slot_soulstone.data = null;				
 				componentsRef.lb_success.visible = false;
 			}
 		}
