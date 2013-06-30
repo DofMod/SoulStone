@@ -31,7 +31,7 @@ package ui
 	import flash.utils.Dictionary;
 	
 	/**
-	 * Main ui class (entry point).
+	 * Main ui class.
 	 * 
 	 * @author ExiTeD, Relena
 	 */
@@ -75,6 +75,11 @@ package ui
 		//::// Public methods
 		//::///////////////////////////////////////////////////////////
 		
+		/**
+		 * Main ui function (entry point).
+		 * 
+		 * @param	params
+		 */
 		public function main(params:Object):void
 		{
 			displayUI(false);
@@ -91,6 +96,9 @@ package ui
 		//::// Events
 		//::///////////////////////////////////////////////////////////
 		
+		/**
+		 * Update weapon callback.
+		 */
 		public function onWeaponUpdate():void
 		{
 			//Si le joueur change d'arme lui même, on met à jour
@@ -155,6 +163,13 @@ package ui
 			}
 		}
 		
+		/**
+		 * Update grid line callback.
+		 * 
+		 * @param	data	Data associated to le line.
+		 * @param	componentsRef	Line of the grid.
+		 * @param	selected	Is the line selected ?
+		 */
 		public function updateEntry(data:*, componentsRef:*, selected:Boolean):void
 		{
 			if (data !== null)
@@ -175,6 +190,11 @@ package ui
 			}
 		}
 		
+		/**
+		 * Mouse rooover callback.
+		 * 
+		 * @param	target
+		 */
 		public function onRollOver(target:Object):void
 		{
 			switch (target)
@@ -198,6 +218,11 @@ package ui
 			uiApi.hideTooltip();
 		}
 		
+		/**
+		 * Mouse release callback.
+		 * 
+		 * @param	target
+		 */
 		public function onRelease(target:Object):void
 		{
 			switch (target)
@@ -233,6 +258,13 @@ package ui
 			btn_open.visible = !display;
 		}
 		
+		/**
+		 * Get best Soulstone name prefix.
+		 * 
+		 * @param	levelMaxMonsters	The hight level among the monsters.
+		 * 
+		 * @return	The prefix of the name of the best Soulstone.
+		 */
 		private function bestSoulStoneToUse(levelMaxMonsters:int):String
 		{
 			var advisedSoulStone:String = "";
