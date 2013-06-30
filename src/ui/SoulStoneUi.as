@@ -86,7 +86,6 @@ package ui
 			
 			uiApi.addComponentHook(btn_close, ComponentHookList.ON_RELEASE);
 			uiApi.addComponentHook(btn_open, ComponentHookList.ON_RELEASE);
-			//uiApi.addComponentHook(tx_slot_weapon, ComponentHookList.ON_RELEASE);
 			
 			sysApi.addHook(UpdatePreFightersList, onUpdatePreFightersList);
 			sysApi.addHook(WeaponUpdate, onWeaponUpdate);
