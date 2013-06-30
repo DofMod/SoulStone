@@ -72,7 +72,7 @@ package ui
 		private var _isArchiBoss : Boolean;
 		
 		//::///////////////////////////////////////////////////////////
-		//::// Méthodes publiques
+		//::// Public methods
 		//::///////////////////////////////////////////////////////////
 		
 		public function main(params : Object) : void
@@ -88,7 +88,7 @@ package ui
 		}
 		
 		//::///////////////////////////////////////////////////////////
-		//::// Evenements
+		//::// Events
 		//::///////////////////////////////////////////////////////////
 
 		public function onWeaponUpdate():void 
@@ -139,86 +139,77 @@ package ui
 			_isInit = true;
 			//sysApi.log(16, "onUpdatePreFightersList : " + (getTimer() - t0) + "ms");
 		}
+
+		public function updateEntry(data : *, componentsRef : *, selected : Boolean) : void
+		{
+			//On affecte data (issue de bestSoulStone) dans le dictionnaire où on référence les boutons de la grid
+			_btnRef[componentsRef.btn_equip] = data;
+			if (data !== null) {
+				//sysApi.log(2, "item : " + data.wrapper.name);
+				var item : ItemWrapper = data.wrapper as ItemWrapper;
+				componentsRef.itemTx.uri = dataApi.getItemIconUri(item.iconId);
+				//On affiche 100% si > à 100% sinon on affiche X (+Y)%
+				componentsRef.lb_reussite.text = data.reussite + "%" ;
+				
+				uiApi.addComponentHook(componentsRef.btn_equip, "onRelease");
+				uiApi.addComponentHook(componentsRef.btn_equip, "onRollOver");
+				uiApi.addComponentHook(componentsRef.btn_equip, "onRollOut");
+				componentsRef.btn_equip.visible = true;
+				componentsRef.lb_reussite..visible = true;
+			}else{
+				componentsRef.btn_equip.visible = false;
+				componentsRef.lb_reussite..visible = false;
+			}
+		}
 		
-		public function updateWeapon(levelMax : int) : void 
+		public function onRollOver( target : Object ) : void
 		{
-			//On affiche (charge) l'interface
-			ctr_main.visible = true;
-			//On initialise des variables
-			grid_stones.visible = true;
-			tx_weapon.uri = null;
-			var soulStone : ItemWrapper = getMyWeaponItem();
-			var advisedSoulStone : String = bestSoulStoneToUse(levelMax);
-				
-			//Si on a une pierre d'âme équipée ( chargée dans getMyWeaponItem() )
-			if (soulStone != null) {
-				//On parcours les effets de la pierre pour récupérer sa puissance
-				for each (var soulStoneEffect : EffectInstanceInteger in soulStone.effects){
-					//sysApi.log(8, "effect.description : " + soulStoneEffect.description);
-					var puissanceSoulStone : Object = soulStoneEffect.parameter2 
-				}
-					
-				//Si la puissance est suffisante
-				if (puissanceSoulStone >= levelMax) {
-					//On vérifie si la puissance de la pierre (qui est suffisante) est optimale
-					if (soulStone.name.search(advisedSoulStone) != -1) {
-						lb_info.text = "<b>La pierre d'âme équipée est de puissance optimale<\b>";
-						lb_info.colorText = 0x007F0E; //Vert
-						grid_stones.visible = false;
-					}else {
-						lb_info.text = "<b>La pierre d'âme équipée est bonne sa puissance mais sa n'est pas optimale \nPierre optimale : <\b>" + advisedSoulStone;
-						lb_info.colorText = 0xFF6A00; //Orange
-						grid_stones.visible = false;
+			switch (target)
+			{
+				default:
+					if (_btnRef[target] !== null){
+						var data : * = _btnRef[target];
+						var toolTip : Object = uiApi.textTooltipInfo(data.wrapper.name + " (" + data.puissance + ")");
+						uiApi.showTooltip(toolTip, target, false, "standard", 7, 1, 3);
 					}
-				}else {
-					lb_info.text = "<b>Pierre équipée de puissance insuffisante \nPierre optimale : <\b>" + advisedSoulStone;
-					lb_info.colorText = 0xFF0000; //Rouge
-					showGrid(levelMax);
-				}
-				
-			}else {
-				lb_info.text = "<b>Pas de pierre équipée \nPierre optimale : <\b>" + advisedSoulStone;
-				lb_info.colorText = 0xFF0000; //Rouge
-				showGrid(levelMax);
 			}
 		}
-
-		public function getMyWeaponItem() : ItemWrapper
+		
+		public function onRollOut( target : Object ) : void
 		{
-			var weapon : ItemWrapper = playCharApi.getWeapon();
-			
-			//Si on a une arme équipée (les pierres d'âme ne comptent pas comme un weapon)
-			if (weapon != null) {
-				lb_weapon.text = chatApi.newChatItem(weapon);
-				lb_weapon_stats.text = "";
-				tx_weapon.uri = weapon.iconUri;
-			}else {
-				//Par défaut on dit qu'il n'y a pas d'arme équipée
-				lb_weapon.text = "Aucun CàC équipé";
-				lb_weapon_stats.text = "";
-				tx_weapon.uri = null;
-				
-				//On regarde si le personnage porte une pierre d'âme
-				for each (var equip : ItemWrapper in playCharApi.getEquipment())
-				{
-					//Si on trouve un type pierre d'âme (83) équipée on rentre puis on quitte
-					if (equip.type.id == 83) {
-						//On inscrit une pierre d'âme dans la variable
-						lb_weapon.text = chatApi.newChatItem(equip);
-						tx_weapon.uri = equip.iconUri;
-						
-						for each ( var effect : EffectInstanceInteger in equip.effects)	{
-							lb_weapon_stats.text = effect.description;
-						}
-						return equip;
-					}
-				}
-
+			switch (target)
+			{
+				default:
+					uiApi.hideTooltip();
 			}
-			return null;
 		}
-
-		public function bestSoulStoneToUse(levelMaxMonsters : int) : String
+		
+		public function onRelease(target : Object) : void
+		{
+			switch (target)
+			{
+				case btn_close:
+					ctr_main.visible = false;
+					btn_open.visible = true;
+					break;
+				case btn_open:
+					ctr_main.visible = true;
+					btn_open.visible = false;
+					break;
+				default:
+					if (_btnRef[target] !== null){
+						var data : * = _btnRef[target];
+						sysApi.sendAction( new ObjectSetPosition(data.wrapper.objectUID, 1, 1));
+						//sysApi.log(16, data.wrapper.name);
+					}
+			}
+		}
+		
+		//::///////////////////////////////////////////////////////////
+		//::// Private methods
+		//::///////////////////////////////////////////////////////////
+		
+		private function bestSoulStoneToUse(levelMaxMonsters : int) : String
 		{		
 			var advisedSoulStone : String = "";
 			
@@ -242,7 +233,7 @@ package ui
 			return advisedSoulStone;
 		}
 		
-		public function showGrid(levelMax : int ) : void
+		private function showGrid(levelMax : int ) : void
 		{
 			var availableSoulStones : Array = new Array();
 					
@@ -287,69 +278,81 @@ package ui
 				//sysApi.log(6,bestSoulStones[k].wrapper.name + " % : " + bestSoulStones[k].reussite + " lvl : " + bestSoulStones[k].puissance);
 			//}
 		}
-
-		public function updateEntry(data : *, componentsRef : *, selected : Boolean) : void
-		{	
-			//On affecte data (issue de bestSoulStone) dans le dictionnaire où on référence les boutons de la grid
-			_btnRef[componentsRef.btn_equip] = data;
-			if (data !== null) {
-				//sysApi.log(2, "item : " + data.wrapper.name);
-				var item : ItemWrapper = data.wrapper as ItemWrapper;
-				componentsRef.itemTx.uri = dataApi.getItemIconUri(item.iconId);
-				//On affiche 100% si > à 100% sinon on affiche X (+Y)%
-				componentsRef.lb_reussite.text = data.reussite + "%" ;
+		
+		private function getMyWeaponItem() : ItemWrapper
+		{
+			var weapon : ItemWrapper = playCharApi.getWeapon();
+			
+			//Si on a une arme équipée (les pierres d'âme ne comptent pas comme un weapon)
+			if (weapon != null) {
+				lb_weapon.text = chatApi.newChatItem(weapon);
+				lb_weapon_stats.text = "";
+				tx_weapon.uri = weapon.iconUri;
+			}else {
+				//Par défaut on dit qu'il n'y a pas d'arme équipée
+				lb_weapon.text = "Aucun CàC équipé";
+				lb_weapon_stats.text = "";
+				tx_weapon.uri = null;
 				
-				uiApi.addComponentHook(componentsRef.btn_equip, "onRelease");
-				uiApi.addComponentHook(componentsRef.btn_equip, "onRollOver");
-				uiApi.addComponentHook(componentsRef.btn_equip, "onRollOut");
-				componentsRef.btn_equip.visible = true;
-				componentsRef.lb_reussite..visible = true;
-			}else{
-				componentsRef.btn_equip.visible = false;
-				componentsRef.lb_reussite..visible = false;
+				//On regarde si le personnage porte une pierre d'âme
+				for each (var equip : ItemWrapper in playCharApi.getEquipment())
+				{
+					//Si on trouve un type pierre d'âme (83) équipée on rentre puis on quitte
+					if (equip.type.id == 83) {
+						//On inscrit une pierre d'âme dans la variable
+						lb_weapon.text = chatApi.newChatItem(equip);
+						tx_weapon.uri = equip.iconUri;
+						
+						for each ( var effect : EffectInstanceInteger in equip.effects)	{
+							lb_weapon_stats.text = effect.description;
+						}
+						return equip;
+					}
+				}
+
 			}
+			return null;
 		}
 		
-		public function onRollOver( target : Object ) : void
+		private function updateWeapon(levelMax : int) : void
 		{
-			switch (target)
-			{			
-				default:
-					if (_btnRef[target] !== null){
-						var data : * = _btnRef[target];
-						var toolTip : Object = uiApi.textTooltipInfo(data.wrapper.name + " (" + data.puissance + ")");
-						uiApi.showTooltip(toolTip, target, false, "standard", 7, 1, 3);
+			//On affiche (charge) l'interface
+			ctr_main.visible = true;
+			//On initialise des variables
+			grid_stones.visible = true;
+			tx_weapon.uri = null;
+			var soulStone : ItemWrapper = getMyWeaponItem();
+			var advisedSoulStone : String = bestSoulStoneToUse(levelMax);
+			
+			//Si on a une pierre d'âme équipée ( chargée dans getMyWeaponItem() )
+			if (soulStone != null) {
+				//On parcours les effets de la pierre pour récupérer sa puissance
+				for each (var soulStoneEffect : EffectInstanceInteger in soulStone.effects){
+					//sysApi.log(8, "effect.description : " + soulStoneEffect.description);
+					var puissanceSoulStone : Object = soulStoneEffect.parameter2 
+				}
+				
+				//Si la puissance est suffisante
+				if (puissanceSoulStone >= levelMax) {
+					//On vérifie si la puissance de la pierre (qui est suffisante) est optimale
+					if (soulStone.name.search(advisedSoulStone) != -1) {
+						lb_info.text = "<b>La pierre d'âme équipée est de puissance optimale<\b>";
+						lb_info.colorText = 0x007F0E; //Vert
+						grid_stones.visible = false;
+					}else {
+						lb_info.text = "<b>La pierre d'âme équipée est bonne sa puissance mais sa n'est pas optimale \nPierre optimale : <\b>" + advisedSoulStone;
+						lb_info.colorText = 0xFF6A00; //Orange
+						grid_stones.visible = false;
 					}
-			}			
-		}
-		
-		public function onRollOut( target : Object ) : void
-		{
-			switch (target)
-			{			
-				default:
-					uiApi.hideTooltip();
-			}			
-		}	
-		
-		public function onRelease(target : Object) : void
-		{
-			switch (target)
-			{
-				case btn_close:
-					ctr_main.visible = false;
-					btn_open.visible = true;
-					break;
-				case btn_open:
-					ctr_main.visible = true;
-					btn_open.visible = false;
-					break;	
-				default:
-					if (_btnRef[target] !== null){
-						var data : * = _btnRef[target];
-						sysApi.sendAction( new ObjectSetPosition(data.wrapper.objectUID, 1, 1));
-						//sysApi.log(16, data.wrapper.name);
-					}
+				}else {
+					lb_info.text = "<b>Pierre équipée de puissance insuffisante \nPierre optimale : <\b>" + advisedSoulStone;
+					lb_info.colorText = 0xFF0000; //Rouge
+					showGrid(levelMax);
+				}
+			}else {
+				lb_info.text = "<b>Pas de pierre équipée \nPierre optimale : <\b>" + advisedSoulStone;
+				lb_info.colorText = 0xFF0000; //Rouge
+				showGrid(levelMax);
 			}
 		}
 	}
