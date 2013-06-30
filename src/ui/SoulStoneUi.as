@@ -71,7 +71,7 @@ package ui
 		
 		public function main(params:Object):void
 		{
-			ctr_main.visible = false;
+			displayUI(false);
 			
 			uiApi.addComponentHook(btn_close, "onRelease");
 			uiApi.addComponentHook(btn_open, "onRelease");
@@ -199,13 +199,11 @@ package ui
 			switch (target)
 			{
 				case btn_close:
-					ctr_main.visible = false;
-					btn_open.visible = true;
+					displayUI(false);
 					
 					break;
 				case btn_open:
-					ctr_main.visible = true;
-					btn_open.visible = false;
+					displayUI(true);
 					
 					break;
 				default:
@@ -221,6 +219,17 @@ package ui
 		//::///////////////////////////////////////////////////////////
 		//::// Private methods
 		//::///////////////////////////////////////////////////////////
+		
+		/**
+		 * Display or hide the UI.
+		 * 
+		 * @param	display	Display the UI ?
+		 */
+		private function displayUI(display:Boolean):void
+		{
+			ctr_main.visible = display;
+			btn_open.visible = !display;
+		}
 		
 		private function bestSoulStoneToUse(levelMaxMonsters:int):String
 		{
@@ -360,8 +369,6 @@ package ui
 		
 		private function updateWeapon(levelMax:int):void
 		{
-			//On affiche (charge) l'interface
-			ctr_main.visible = true;
 			//On initialise des variables
 			grid_stones.visible = true;
 			tx_weapon.uri = null;
@@ -408,6 +415,8 @@ package ui
 				lb_info.colorText = 0xFF0000; //Rouge
 				showGrid(levelMax);
 			}
+			
+			displayUI(true);
 		}
 	}
 }
