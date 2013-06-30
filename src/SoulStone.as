@@ -12,6 +12,11 @@ package
 	import flash.utils.Dictionary;
 	import ui.SoulStoneUi;
 	
+	/**
+	 * Main module class (entry point).
+	 * 
+	 * @author ExiTeD, Relena
+	 */
 	public class SoulStone extends Sprite
 	{
 		//::///////////////////////////////////////////////////////////

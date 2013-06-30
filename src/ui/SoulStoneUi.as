@@ -24,9 +24,9 @@ package ui
 	import flash.utils.Dictionary;
 	
 	/**
-	 * ...
+	 * Main ui class (entry point).
 	 * 
-	 * @author ExiTeD
+	 * @author ExiTeD, Relena
 	 */
 	public class SoulStoneUi
 	{
