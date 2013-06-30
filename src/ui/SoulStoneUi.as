@@ -94,6 +94,11 @@ package ui
 			}
 		}
 		
+		/**
+		 * Hook reporting the modification of the list of fighters in pre-fight.
+		 * 
+		 * @param	newFighterId	The identifier of the new fighter (no value is the fighter is leaving).
+		 */
 		public function onUpdatePreFightersList(newFighterId:int = 0):void
 		{
 			_monsterMaxLevel = 0;
