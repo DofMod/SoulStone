@@ -332,10 +332,8 @@ package ui
 			//}
 		}
 		
-		private function getMyWeaponItem():ItemWrapper
+		private function displayWeapon(weapon:ItemWrapper):void
 		{
-			var weapon:ItemWrapper = playCharApi.getWeapon();
-			
 			//Si on a une arme équipée (les pierres d'âme ne comptent pas comme un weapon)
 			if (weapon != null)
 			{
@@ -352,8 +350,6 @@ package ui
 							lb_weapon_stats.text = effect.description;
 						}
 					}
-					
-					return weapon;
 				}
 			}
 			else
@@ -362,8 +358,6 @@ package ui
 				lb_weapon_stats.text = "";
 				tx_weapon.uri = null;
 			}
-			
-			return null;
 		}
 		
 		private function updateWeapon(levelMax:int):void
@@ -371,7 +365,16 @@ package ui
 			//On initialise des variables
 			grid_stones.visible = true;
 			tx_weapon.uri = null;
-			var soulStone:ItemWrapper = getMyWeaponItem();
+			
+			var weapon:ItemWrapper = playCharApi.getWeapon();
+			
+			displayWeapon(weapon);
+			
+			if (weapon.type.id == 83)
+			{
+				var soulStone:ItemWrapper = weapon;
+			}
+			
 			var advisedSoulStone:String = bestSoulStoneToUse(levelMax);
 			
 			//Si on a une pierre d'âme équipée ( chargée dans getMyWeaponItem() )
