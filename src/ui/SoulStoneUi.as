@@ -287,7 +287,7 @@ package ui
 		{
 			var availableSoulStones:Array = new Array();
 			
-			for each (var item:ItemWrapper in storageApi.getViewContent("storageEquipement"))
+			for each (var item:ItemWrapper in storageApi.getViewContent("storageEquipment"))
 			{
 				//Si catégorie est "pierre d'âmes" et la pierre n'est pas celle du krala
 				if (item.type.id == ItemTypeIdEnum.SOULSTONE && item.id != 9718)
