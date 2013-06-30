@@ -118,18 +118,18 @@ package ui
 			var matchMonsters:Array = new Array();
 			
 			//On parcours les index des combattants
-			for each (var idFighter:int in fightApi.getFighters())
+			for each (var fighterId:int in fightApi.getFighters())
 			{
 				//Permet de récupérer le niveau du monstre le plus haut (leur index va de -1 à -8)
-				var level:int = fightApi.getFighterLevel(idFighter);
-				if ((idFighter < 0) && (level >= _monsterMaxLevel))
+				var level:int = fightApi.getFighterLevel(fighterId);
+				if ((fighterId < 0) && (level >= _monsterMaxLevel))
 				{
 					_monsterMaxLevel = level;
 				}
 				
-				//sysApi.log(8, "fighterName : " + fightApi.getFighterName(idFighter));
+				//sysApi.log(8, "fighterName : " + fightApi.getFighterName(fighterId));
 				
-				var monster:Monster = SoulStone.dicoMonsters[fightApi.getFighterName(idFighter)];
+				var monster:Monster = SoulStone.dicoMonsters[fightApi.getFighterName(fighterId)];
 				
 				//On regarde si le monstre existe (en premier) et s'il est un archi (race 78) ou un boss
 				if (monster && monster.race == 78 || monster && SoulStone.allBoss[monster.id] != null)
