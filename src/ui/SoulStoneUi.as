@@ -247,33 +247,37 @@ package ui
 			{
 				advisedSoulStone = "Petite Pierre d'âme";
 			}
-			else if (levelMaxMonsters > 50 && levelMaxMonsters <= 100)
+			else if (levelMaxMonsters <= 100)
 			{
 				advisedSoulStone = "Moyenne Pierre d'âme";
 			}
-			else if (levelMaxMonsters > 100 && levelMaxMonsters <= 150)
+			else if (levelMaxMonsters <= 150)
 			{
 				advisedSoulStone = "Grande Pierre d'âme";
 			}
-			else if (levelMaxMonsters > 150 && levelMaxMonsters <= 200)
+			else if (levelMaxMonsters <= 200)
 			{
 				advisedSoulStone = "Enorme Pierre d'âme";
 			}
-			else if (levelMaxMonsters > 200 && levelMaxMonsters <= 250)
+			else if (levelMaxMonsters <= 250)
 			{
 				advisedSoulStone = "Enorme pierre d'âme parfaite";
 			}
-			else if (levelMaxMonsters > 250 && levelMaxMonsters <= 500)
+			else if (levelMaxMonsters <= 500)
 			{
 				advisedSoulStone = "Giga Pierre d'âme";
 			}
-			else if (levelMaxMonsters > 500 && levelMaxMonsters <= 1000)
+			else if (levelMaxMonsters <= 1000)
 			{
 				advisedSoulStone = "Gigantesque Pierre d'âme";
 			}
-			else if (levelMaxMonsters > 1000 && levelMaxMonsters <= 2000)
+			else if (levelMaxMonsters <= 2000)
 			{
 				advisedSoulStone = "Sublime Pierre d'âme";
+			}
+			else
+			{
+				advisedSoulStone = "?";
 			}
 			
 			return advisedSoulStone;
