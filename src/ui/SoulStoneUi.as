@@ -62,7 +62,7 @@ package ui
 		public var texta_monstre:TextArea;
 		
 		private var _btnRef:Dictionary = new Dictionary(false);
-		private var _lvlmax:int = 0;
+		private var _monsterMaxLevel:int = 0;
 		private var _isInit:Boolean = false;
 		private var _isArchiBoss:Boolean;
 		
@@ -91,7 +91,7 @@ package ui
 			//Si le joueur change d'arme lui même, on met à jour
 			if (_isArchiBoss)
 			{
-				updateWeapon(_lvlmax);
+				updateWeapon(_monsterMaxLevel);
 			}
 		}
 		
@@ -113,7 +113,7 @@ package ui
 			
 			//Variables et Initialisation
 			texta_monstre.text = "";
-			_lvlmax = 0;
+			_monsterMaxLevel = 0;
 			_isArchiBoss = false;
 			var matchMonsters:Array = new Array();
 			
@@ -122,9 +122,9 @@ package ui
 			{
 				//Permet de récupérer le niveau du monstre le plus haut (leur index va de -1 à -8)
 				var level:int = fightApi.getFighterLevel(idFighter);
-				if ((idFighter < 0) && (level >= _lvlmax))
+				if ((idFighter < 0) && (level >= _monsterMaxLevel))
 				{
-					_lvlmax = level;
+					_monsterMaxLevel = level;
 				}
 				
 				//sysApi.log(8, "fighterName : " + fightApi.getFighterName(idFighter));
@@ -149,7 +149,7 @@ package ui
 			//Si il y a un Boss ou un Archi dans le groupe
 			if (_isArchiBoss)
 			{
-				updateWeapon(_lvlmax);
+				updateWeapon(_monsterMaxLevel);
 			}
 			
 			_isInit = true;
