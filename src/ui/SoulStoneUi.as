@@ -16,6 +16,7 @@ package ui
 	import d2components.Label;
 	import d2components.TextArea;
 	import d2components.Texture;
+	import d2data.EffectInstance;
 	import d2data.EffectInstanceInteger;
 	import d2data.ItemWrapper;
 	import d2data.Monster;
@@ -341,32 +342,25 @@ package ui
 				lb_weapon.text = chatApi.newChatItem(weapon);
 				lb_weapon_stats.text = "";
 				tx_weapon.uri = weapon.iconUri;
-			}
-			else
-			{
-				//Par défaut on dit qu'il n'y a pas d'arme équipée
-				lb_weapon.text = "Aucun CàC équipé";
-				lb_weapon_stats.text = "";
-				tx_weapon.uri = null;
 				
-				//On regarde si le personnage porte une pierre d'âme
-				for each (var equip:ItemWrapper in playCharApi.getEquipment())
+				if (weapon.type.id == 83)
 				{
-					//Si on trouve un type pierre d'âme (83) équipée on rentre puis on quitte
-					if (equip.type.id == 83)
+					for each (var effect:EffectInstance in weapon.effects)
 					{
-						//On inscrit une pierre d'âme dans la variable
-						lb_weapon.text = chatApi.newChatItem(equip);
-						tx_weapon.uri = equip.iconUri;
-						
-						for each (var effect:EffectInstanceInteger in equip.effects)
+						if (effect is EffectInstanceInteger)
 						{
 							lb_weapon_stats.text = effect.description;
 						}
-						
-						return equip;
 					}
+					
+					return weapon;
 				}
+			}
+			else
+			{
+				lb_weapon.text = "Aucun CàC équipé";
+				lb_weapon_stats.text = "";
+				tx_weapon.uri = null;
 			}
 			
 			return null;
