@@ -370,19 +370,21 @@ package ui
 			}
 		}
 		
+		/**
+		 * Update weapon's fields and display grid if needed.
+		 * 
+		 * @param	levelMax	Level max of the monsters.
+		 */
 		private function updateWeapon(levelMax:int):void
 		{
-			//On initialise des variables
 			grid_stones.visible = true;
 			tx_weapon.uri = null;
 			
 			var weapon:ItemWrapper = playCharApi.getWeapon();
+			var advisedSoulStone:String = bestSoulStoneToUse(levelMax);
 			
 			displayWeapon(weapon);
 			
-			var advisedSoulStone:String = bestSoulStoneToUse(levelMax);
-			
-			//Si on a une pierre d'âme équipée ( chargée dans getMyWeaponItem() )
 			if (weapon.type.id == ItemTypeIdEnum.SOULSTONE)
 			{
 				for each (var effect:EffectInstance in weapon.effects)
@@ -397,34 +399,37 @@ package ui
 					}
 				}
 				
-				//Si la puissance est suffisante
 				if (puissanceSoulStone >= levelMax)
 				{
 					//On vérifie si la puissance de la pierre (qui est suffisante) est optimale
 					if (weapon.name.search(advisedSoulStone) != -1)
 					{
 						lb_info.text = "<b>La pierre d'âme équipée est de puissance optimale<\b>";
-						lb_info.colorText = 0x007F0E; //Vert
+						lb_info.colorText = 0x007F0E; // Green
+						
 						grid_stones.visible = false;
 					}
 					else
 					{
 						lb_info.text = "<b>La pierre d'âme équipée est bonne sa puissance mais sa n'est pas optimale \nPierre optimale : <\b>" + advisedSoulStone;
-						lb_info.colorText = 0xFF6A00; //Orange
+						lb_info.colorText = 0xFF6A00; // Orange
+						
 						grid_stones.visible = false;
 					}
 				}
 				else
 				{
 					lb_info.text = "<b>Pierre équipée de puissance insuffisante \nPierre optimale : <\b>" + advisedSoulStone;
-					lb_info.colorText = 0xFF0000; //Rouge
+					lb_info.colorText = 0xFF0000; // Red
+					
 					showGrid(levelMax);
 				}
 			}
 			else
 			{
 				lb_info.text = "<b>Pas de pierre équipée \nPierre optimale : <\b>" + advisedSoulStone;
-				lb_info.colorText = 0xFF0000; //Rouge
+				lb_info.colorText = 0xFF0000; // Red
+				
 				showGrid(levelMax);
 			}
 			
