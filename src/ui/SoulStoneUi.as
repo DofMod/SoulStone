@@ -380,18 +380,13 @@ package ui
 			
 			displayWeapon(weapon);
 			
-			if (weapon.type.id == ItemTypeIdEnum.SOULSTONE)
-			{
-				var soulStone:ItemWrapper = weapon;
-			}
-			
 			var advisedSoulStone:String = bestSoulStoneToUse(levelMax);
 			
 			//Si on a une pierre d'âme équipée ( chargée dans getMyWeaponItem() )
-			if (soulStone != null)
+			if (weapon.type.id == ItemTypeIdEnum.SOULSTONE)
 			{
 				//On parcours les effets de la pierre pour récupérer sa puissance
-				for each (var soulStoneEffect:EffectInstanceInteger in soulStone.effects)
+				for each (var soulStoneEffect:EffectInstanceInteger in weapon.effects)
 				{
 					//sysApi.log(8, "effect.description : " + soulStoneEffect.description);
 					var puissanceSoulStone:Object = soulStoneEffect.parameter2
@@ -401,7 +396,7 @@ package ui
 				if (puissanceSoulStone >= levelMax)
 				{
 					//On vérifie si la puissance de la pierre (qui est suffisante) est optimale
-					if (soulStone.name.search(advisedSoulStone) != -1)
+					if (weapon.name.search(advisedSoulStone) != -1)
 					{
 						lb_info.text = "<b>La pierre d'âme équipée est de puissance optimale<\b>";
 						lb_info.colorText = 0x007F0E; //Vert
