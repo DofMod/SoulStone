@@ -21,6 +21,7 @@ package ui
 	import d2data.EffectInstanceInteger;
 	import d2data.ItemWrapper;
 	import d2data.Monster;
+	import d2enums.CharacterInventoryPositionEnum;
 	import d2enums.ComponentHookList;
 	import d2hooks.UpdatePreFightersList;
 	import d2hooks.WeaponUpdate;
@@ -210,7 +211,7 @@ package ui
 				default:
 					if (target is Slot && target.data != null)
 					{
-						sysApi.sendAction(new ObjectSetPosition(target.data.item.objectUID, 1, 1));
+						sysApi.sendAction(new ObjectSetPosition(target.data.item.objectUID, CharacterInventoryPositionEnum.ACCESSORY_POSITION_WEAPON));
 					}
 			}
 		}
