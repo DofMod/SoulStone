@@ -287,20 +287,23 @@ package ui
 		{
 			var availableSoulStones:Array = new Array();
 			
-			//On parcours les objets équipables de l'inventaire
 			for each (var item:ItemWrapper in storageApi.getViewContent("storageEquipement"))
 			{
 				//Si catégorie est "pierre d'âmes" et la pierre n'est pas celle du krala
-				if (item.type.id == 83 && item.id != 9718)
+				if (item.type.id == ItemTypeIdEnum.SOULSTONE && item.id != 9718)
 				{
-					//On parcours l'effet des pierres pour stocker des infos dans le tableau
-					for each (var effect:EffectInstanceInteger in item.effects)
+					for each (var effect:EffectInstance in item.effects)
 					{
-						//Si la puissance est suffisante
-						if (effect.parameter2 >= levelMax)
+						if (effect.effectId == EffectIdEnum.SOUL_CAPTURE)
 						{
-							//parameter0 : %Age de Chance, parameter2 :Niveau Max
-							availableSoulStones.push({wrapper: item, reussite: effect.parameter0, puissance: effect.parameter2});
+							// parameter0 : %chance of capture
+							// parameter1 : ?
+							// parameter2 : Max level of capture
+							
+							if (effect.parameter2 >= levelMax)
+							{
+								availableSoulStones.push({wrapper: item, reussite: effect.parameter0, puissance: effect.parameter2});
+							}
 						}
 					}
 				}
