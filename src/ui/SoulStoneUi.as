@@ -160,14 +160,15 @@ package ui
 			if (data !== null)
 			{
 				//sysApi.log(2, "item : " + data.wrapper.name);
-				var item:ItemWrapper = data.wrapper as ItemWrapper;
+				var item:ItemWrapper = data.item as ItemWrapper;
 				componentsRef.tx_item.uri = dataApi.getItemIconUri(item.iconId);
 				//On affiche 100% si > à 100% sinon on affiche X (+Y)%
-				componentsRef.lb_success.text = data.reussite + "%";
+				componentsRef.lb_success.text = data.probability + "%";
 				
 				uiApi.addComponentHook(componentsRef.btn_equip, "onRelease");
 				uiApi.addComponentHook(componentsRef.btn_equip, "onRollOver");
 				uiApi.addComponentHook(componentsRef.btn_equip, "onRollOut");
+				
 				componentsRef.btn_equip.visible = true;
 				componentsRef.lb_success.visible = true;
 			}
@@ -287,9 +288,10 @@ package ui
 		{
 			var soulstones:Dictionary = new Dictionary();
 			
+			// Get the soulstone of each capture probability, who have minimal power, but power > monsters level max
 			for each (var item:ItemWrapper in storageApi.getViewContent("storageEquipment"))
 			{
-				//Si catégorie est "pierre d'âmes" et la pierre n'est pas celle du krala
+				// 9718 : id of the Kralamour's soulstone
 				if (item.type.id == ItemTypeIdEnum.SOULSTONE && item.id != 9718)
 				{
 					for each (var effect:EffectInstance in item.effects)
@@ -315,7 +317,13 @@ package ui
 				}
 			}
 			
-			grid_stones.dataProvider = soulstones;
+			var soulstoneList:Array = new Array();
+			for each (var soulstone:Object in soulstones)
+			{
+				soulstoneList.push(soulstone);
+			}
+			
+			grid_stones.dataProvider = soulstoneList;
 		}
 		
 		/**
