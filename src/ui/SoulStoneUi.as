@@ -95,7 +95,7 @@ package ui
 			}
 		}
 		
-		public function onUpdatePreFightersList(fighterId:int):void
+		public function onUpdatePreFightersList(newFighterId:int):void
 		{
 			//var t0 : int = getTimer();
 			if (_isInit)
@@ -104,7 +104,7 @@ package ui
 				
 				return;
 			}
-			if (fighterId != playCharApi.id())
+			if (newFighterId != playCharApi.id())
 			{
 				//sysApi.log(16, "L'id n'est pas celui du joueur");
 				
