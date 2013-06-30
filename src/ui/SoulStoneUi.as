@@ -63,7 +63,6 @@ package ui
 		
 		private var _btnRef:Dictionary = new Dictionary(false);
 		private var _monsterMaxLevel:int = 0;
-		private var _isInit:Boolean = false;
 		private var _isArchiBoss:Boolean;
 		
 		//::///////////////////////////////////////////////////////////
@@ -97,15 +96,6 @@ package ui
 		
 		public function onUpdatePreFightersList(newFighterId:int = 0):void
 		{
-			if (_isInit)
-			{
-				return;
-			}
-			if (newFighterId != playCharApi.id())
-			{
-				return;
-			}
-			
 			texta_monster.text = "";
 			_monsterMaxLevel = 0;
 			_isArchiBoss = false;
@@ -149,8 +139,6 @@ package ui
 			{
 				updateWeapon(_monsterMaxLevel);
 			}
-			
-			_isInit = true;
 		}
 		
 		public function updateEntry(data:*, componentsRef:*, selected:Boolean):void
