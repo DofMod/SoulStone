@@ -285,7 +285,7 @@ package ui
 		
 		private function showGrid(levelMax:int):void
 		{
-			var availableSoulStones:Array = new Array();
+			var soulstones:Dictionary = new Dictionary();
 			
 			for each (var item:ItemWrapper in storageApi.getViewContent("storageEquipment"))
 			{
@@ -300,45 +300,22 @@ package ui
 							// parameter1 : ?
 							// parameter2 : Max level of capture
 							
-							if (effect.parameter2 >= levelMax)
+							var probability:int = effect.parameter0 as int;
+							var power:int = effect.parameter2 as int;
+							
+							if (power >= levelMax)
 							{
-								availableSoulStones.push({wrapper: item, reussite: effect.parameter0, puissance: effect.parameter2});
+								if (soulstones[probability] == undefined || soulstones[probability].power > power)
+								{
+									soulstones[probability] = {item: item, power: power, probability: probability};
+								}
 							}
 						}
 					}
 				}
 			}
 			
-			//On trie le tableau pour pouvoir ressortir les pierres optimales
-			availableSoulStones.sortOn(["reussite", "puissance"], [Array.NUMERIC, Array.NUMERIC])
-			
-			var bestSoulStones:Array = new Array();
-			var tmpReussite:int = 0;
-			//On parcours les pierres d'âme disponibles
-			for (var y:int = 0; y < availableSoulStones.length; y++)
-			{
-				//sysApi.log(4,availableSoulStones[y].wrapper.name + " % : " + availableSoulStones[y].reussite + " lvl : " + availableSoulStones[y].puissance);
-				//On stocke la réussite de la pierre en cours pour comparer
-				tmpReussite = availableSoulStones[y].reussite;
-				bestSoulStones.push(availableSoulStones[y]);
-				
-				//On parcours le tableau pour voir si d'autres pierres ont la même réussite, si oui on les supprime
-				for (var z:int = 0; z < availableSoulStones.length; z++)
-				{
-					//Si on trouve la même réussite, on supprime la ligne et on continue avec ligne = ligne - 1
-					if (availableSoulStones[z].reussite == tmpReussite && z != y)
-					{
-						availableSoulStones.splice(z, 1)
-						z = z - 1;
-					}
-				}
-			}
-			
-			grid_stones.dataProvider = bestSoulStones;
-			
-			//for ( var k : int = 0 ; k < bestSoulStones.length ; k++ ) {
-				//sysApi.log(6,bestSoulStones[k].wrapper.name + " % : " + bestSoulStones[k].reussite + " lvl : " + bestSoulStones[k].puissance);
-			//}
+			grid_stones.dataProvider = soulstones;
 		}
 		
 		/**
