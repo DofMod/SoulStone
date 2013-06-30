@@ -23,6 +23,7 @@ package ui
 	import d2hooks.UpdatePreFightersList;
 	import d2hooks.WeaponUpdate;
 	import enums.EffectIdEnum;
+	import enums.ItemTypeIdEnum;
 	import flash.utils.Dictionary;
 	
 	/**
@@ -346,8 +347,7 @@ package ui
 				lb_weapon_stats.text = "";
 				tx_weapon.uri = weapon.iconUri;
 				
-				// 83 : Soulstone
-				if (weapon.type.id == 83)
+				if (weapon.type.id == ItemTypeIdEnum.SOULSTONE)
 				{
 					for each (var effect:EffectInstance in weapon.effects)
 					{
@@ -376,8 +376,7 @@ package ui
 			
 			displayWeapon(weapon);
 			
-			// 83 : Soulstone
-			if (weapon.type.id == 83)
+			if (weapon.type.id == ItemTypeIdEnum.SOULSTONE)
 			{
 				var soulStone:ItemWrapper = weapon;
 			}
