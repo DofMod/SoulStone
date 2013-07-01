@@ -176,33 +176,25 @@
 				<wordWrap>true</wordWrap>
 			</Label>
 
-			<Texture name="tx_slot_weapon">
+			<Slot name="slot_weapon">
 				<Anchors>
 					<Anchor>
-						<AbsDimension x="30"
-									  y="25" />
+						<AbsDimension x="25"
+									  y="20" />
 					</Anchor>
 				</Anchors>
 				<Size>
-					<AbsDimension x="44"
-								  y="44" />
+					<AbsDimension x="52"
+								  y="52" />
 				</Size>
 
-				<uri>[local.assets]tx_slotItem1</uri>
-			</Texture>
-
-			<Texture name="tx_weapon">
-				<Anchors>
-					<Anchor>
-						<AbsDimension x="30"
-									  y="25" />
-					</Anchor>
-				</Anchors>
-				<Size>
-					<AbsDimension x="44"
-								  y="44" />
-				</Size>
-			</Texture>
+				<emptyTexture>[local.assets]tx_slotItem1</emptyTexture>
+				<css>[local.css]normal.css</css>
+				<highlightTexture>[local.over_uri]</highlightTexture>
+				<selectedTexture>[local.selected_uri]</selectedTexture>
+				<acceptDragTexture>[local.acceptDrop_uri]</acceptDragTexture>
+				<refuseDragTexture>[local.refuseDrop_uri]</refuseDragTexture>
+			</Slot>
 
 			<!-- Bouton pour masquer cette interface -->
 			<iconButton name="btn_close">

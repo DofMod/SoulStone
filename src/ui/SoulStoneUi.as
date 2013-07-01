@@ -57,8 +57,7 @@ package ui
 		public var lb_weapon_stats:Label;
 		public var lb_info:Label;
 		
-		public var tx_weapon:Texture;
-		public var tx_slot_weapon:Texture;
+		public var slot_weapon:Slot;
 		
 		public var btn_close:ButtonContainer;
 		public var btn_open:ButtonContainer;
@@ -268,7 +267,6 @@ package ui
 		private function updateWeapon(levelMax:int):void
 		{
 			grid_stones.visible = true;
-			tx_weapon.uri = null;
 			
 			var weapon:ItemWrapper = playCharApi.getWeapon();
 			var advisedSoulStone:String = bestSoulStoneToUse(levelMax);
@@ -333,11 +331,12 @@ package ui
 		 */
 		private function displayWeapon(weapon:ItemWrapper):void
 		{
+			slot_weapon.data = weapon;
+			
 			if (weapon != null)
 			{
 				lb_weapon.text = chatApi.newChatItem(weapon);
 				lb_weapon_stats.text = "";
-				tx_weapon.uri = weapon.iconUri;
 				
 				if (weapon.typeId == ItemTypeIdEnum.SOULSTONE)
 				{
@@ -354,7 +353,6 @@ package ui
 			{
 				lb_weapon.text = "Aucun CàC équipé";
 				lb_weapon_stats.text = "";
-				tx_weapon.uri = null;
 			}
 		}
 		
