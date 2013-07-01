@@ -149,6 +149,11 @@ package ui
 			
 			displayMonsterList(matchMonsters);
 			updateWeapon(_monsterMaxLevel);
+			
+			if (matchMonsters.length > 0)
+			{
+				displayUI(true);
+			}
 		}
 		
 		/**
@@ -333,8 +338,6 @@ package ui
 				
 				displayGrid(true, levelMax);
 			}
-			
-			displayUI(true);
 		}
 		
 		/**
