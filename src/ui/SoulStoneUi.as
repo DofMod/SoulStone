@@ -147,19 +147,8 @@ package ui
 				}
 			}
 			
-			texta_monster.text = "";
-			
-			if (matchMonsters.length > 0)
-			{
-				matchMonsters.sortOn("level", Array.NUMERIC);
-				
-				for each (var matchMonster:Object in matchMonsters)
-				{
-					texta_monster.appendText(matchMonster.name + " niv. " + matchMonster.level);
-				}
-				
-				updateWeapon(_monsterMaxLevel);
-			}
+			displayMonsterList(matchMonsters);
+			updateWeapon(_monsterMaxLevel);
 		}
 		
 		/**
@@ -484,6 +473,26 @@ package ui
 			}
 			
 			grid_stones.dataProvider = soulstoneList;
+		}
+		
+		/**
+		 * Fill the monster textarea.
+		 * 
+		 * @param	monsters	The monster list to display.
+		 */
+		private function displayMonsterList(monsters:Array):void
+		{
+			texta_monster.text = "";
+			
+			if (monsters.length > 0)
+			{
+				monsters.sortOn("level", Array.NUMERIC);
+				
+				for each (var monster:Object in monsters)
+				{
+					texta_monster.appendText(monster.name + " niv. " + monster.level);
+				}
+			}
 		}
 	}
 }
