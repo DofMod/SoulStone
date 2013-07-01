@@ -91,6 +91,7 @@ package ui
 			sysApi.addHook(UpdatePreFightersList, onUpdatePreFightersList);
 			sysApi.addHook(WeaponUpdate, onWeaponUpdate);
 			
+			displayGrid(false);
 			displayUI(!minimized);
 		}
 		
@@ -117,9 +118,10 @@ package ui
 		 */
 		public function onUpdatePreFightersList(newFighterId:int = 0):void
 		{
-			_monsterMaxLevel = 0;
+			_monsterMaxLevel = getEnnemiesMaxLevel();
 			_isFightWithArchiOrBoss = false;
 			var matchMonsters:Array = new Array();
+			
 			
 			for each (var fighterId:int in fightApi.getFighters())
 			{
@@ -135,11 +137,6 @@ package ui
 				}
 				
 				var monsterLevel:int = fightApi.getFighterLevel(fighterId);
-				if (monsterLevel >= _monsterMaxLevel)
-				{
-					_monsterMaxLevel = monsterLevel;
-				}
-				
 				var monster:Monster = dataApi.getMonsterFromId(monsterGenericId);
 				
 				if (monster && (monster.isMiniBoss || monster.isBoss))
@@ -262,14 +259,43 @@ package ui
 		}
 		
 		/**
+		 * Return the hightest level among the ennemies.
+		 * 
+		 * @return	The highters level among the ennemies.
+		 */
+		private function getEnnemiesMaxLevel():int
+		{
+			if (sysApi.isFightContext() == false)
+			{
+				return 0;
+			}
+			
+			var fighterMaxLevel:int = 0;
+			
+			for each (var fighterId:int in fightApi.getFighters())
+			{
+				if (fightApi.getFighterInformations(fighterId).team != "defender")
+				{
+					continue;
+				}
+				
+				var fighterLevel:int = fightApi.getFighterLevel(fighterId);
+				if (fighterLevel > fighterMaxLevel)
+				{
+					fighterMaxLevel = fighterLevel;
+				}
+			}
+			
+			return fighterMaxLevel;
+		}
+		
+		/**
 		 * Update weapon's fields and display grid if needed.
 		 * 
 		 * @param	levelMax	Level max of the monsters.
 		 */
 		private function updateWeapon(levelMax:int):void
 		{
-			grid_stones.visible = true;
-			
 			var weapon:ItemWrapper = playCharApi.getWeapon();
 			var advisedSoulStone:String = bestSoulStoneToUse(levelMax);
 			
@@ -296,15 +322,11 @@ package ui
 					{
 						lb_info.text = "<b>La pierre d'âme équipée est de puissance optimale<\b>";
 						lb_info.colorText = 0x007F0E; // Green
-						
-						grid_stones.visible = false;
 					}
 					else
 					{
 						lb_info.text = "<b>La pierre d'âme équipée est bonne sa puissance mais sa n'est pas optimale \nPierre optimale : <\b>" + advisedSoulStone;
 						lb_info.colorText = 0xFF6A00; // Orange
-						
-						grid_stones.visible = false;
 					}
 				}
 				else
@@ -312,7 +334,7 @@ package ui
 					lb_info.text = "<b>Pierre équipée de puissance insuffisante \nPierre optimale : <\b>" + advisedSoulStone;
 					lb_info.colorText = 0xFF0000; // Red
 					
-					showGrid(levelMax);
+					displayGrid(true, levelMax);
 				}
 			}
 			else
@@ -320,7 +342,7 @@ package ui
 				lb_info.text = "<b>Pas de pierre équipée \nPierre optimale : <\b>" + advisedSoulStone;
 				lb_info.colorText = 0xFF0000; // Red
 				
-				showGrid(levelMax);
+				displayGrid(true, levelMax);
 			}
 			
 			displayUI(true);
@@ -412,10 +434,18 @@ package ui
 		/**
 		 * Select the best soulstones and send the to display.
 		 * 
+		 * @param	display	Display the grid ?
 		 * @param	levelMax	Hight lvl among the monsters.
 		 */
-		private function showGrid(levelMax:int):void
+		private function displayGrid(display:Boolean = true, levelMax:int = 0):void
 		{
+			grid_stones.visible = display;
+			
+			if (display == false)
+			{
+				return;
+			}
+			
 			var soulstones:Dictionary = new Dictionary();
 			
 			// Get the soulstone of each capture probability, who have minimal power, but power > monsters level max
