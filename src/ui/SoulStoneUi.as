@@ -91,6 +91,7 @@ package ui
 			sysApi.addHook(UpdatePreFightersList, onUpdatePreFightersList);
 			sysApi.addHook(WeaponUpdate, onWeaponUpdate);
 			
+			displayWeapon(playCharApi.getWeapon());
 			displayGrid(false);
 			displayUI(!minimized);
 		}
@@ -121,7 +122,6 @@ package ui
 			_monsterMaxLevel = getEnnemiesMaxLevel();
 			_isFightWithArchiOrBoss = false;
 			var matchMonsters:Array = new Array();
-			
 			
 			for each (var fighterId:int in fightApi.getFighters())
 			{
