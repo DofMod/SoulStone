@@ -10,6 +10,7 @@ package
 	import d2hooks.GameFightStart;
 	import flash.display.Sprite;
 	import flash.utils.Dictionary;
+	import hooks.ModuleSoulstoneOpen;
 	import ui.SoulStoneUi;
 	
 	/**
@@ -41,12 +42,31 @@ package
 		
 		public function main():void
 		{
+			sysApi.createHook("ModuleSoulstoneOpen");
+			
 			sysApi.addHook(GameFightJoin, onGameFightJoin);
+			sysApi.addHook(ModuleSoulstoneOpen, onModuleSoulstoneOpen);
 		}
 		
 		//::///////////////////////////////////////////////////////////
 		//::// Events
 		//::///////////////////////////////////////////////////////////
+		
+		/**
+		 * Hook reporting a request to open the module's UI.
+		 * 
+		 * @param	minimized	Load the UI in minimized mode ?
+		 */
+		private function onModuleSoulstoneOpen(minimized:Boolean = false):void
+		{
+			if (!uiApi.getUi(UI_INSTANCE_NAME))
+			{
+				uiApi.loadUi(UI_NAME, UI_INSTANCE_NAME);
+				
+				sysApi.addHook(GameFightStart, onGameFightStart);
+				sysApi.addHook(GameFightEnd, onGameFightEnd);
+			}
+		}
 		
 		/**
 		 * Hook reporting the entrance of the player in the fight.
@@ -61,13 +81,7 @@ package
 		{
 			if (fightType == FightTypeEnum.FIGHT_TYPE_PvM && !isSpectator)
 			{
-				if (!uiApi.getUi(UI_INSTANCE_NAME))
-				{
-					uiApi.loadUi(UI_NAME, UI_INSTANCE_NAME);
-					
-					sysApi.addHook(GameFightStart, onGameFightStart);
-					sysApi.addHook(GameFightEnd, onGameFightEnd);
-				}
+				sysApi.dispatchHook(ModuleSoulstoneOpen, true);
 			}
 		}
 		
