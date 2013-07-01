@@ -11,7 +11,7 @@ package
 	import d2hooks.GameFightStart;
 	import flash.display.Sprite;
 	import flash.utils.Dictionary;
-	import hooks.ModuleSoulstoneOpen;
+	import hooks.ModuleSoulstoneDisplayMonster;
 	import ui.SoulStoneUi;
 	
 	/**
@@ -38,6 +38,9 @@ package
 		public var dataApi:DataApi;
 		public var fightApi:FightApi;
 		
+		// Some globals
+		private var _pendingMonsters:Array = new Array();
+		
 		//::///////////////////////////////////////////////////////////
 		//::// Public methods
 		//::///////////////////////////////////////////////////////////
@@ -47,7 +50,7 @@ package
 			sysApi.createHook("ModuleSoulstoneOpen");
 			
 			sysApi.addHook(GameFightJoin, onGameFightJoin);
-			sysApi.addHook(ModuleSoulstoneOpen, onModuleSoulstoneOpen);
+			sysApi.addHook(ModuleSoulstoneDisplayMonster, onModuleSoulstoneDisplayMonster);
 		}
 		
 		//::///////////////////////////////////////////////////////////
@@ -55,11 +58,11 @@ package
 		//::///////////////////////////////////////////////////////////
 		
 		/**
-		 * Hook reporting a request to open the module's UI.
+		 * Hook reporting a request to display a monster in the UI.
 		 * 
-		 * @param	minimized	Load the UI in minimized mode ?
+		 * @param	monsterUID	UID of the monster to display.
 		 */
-		private function onModuleSoulstoneOpen(minimized:Boolean = false):void
+		private function onModuleSoulstoneDisplayMonster(monsterUID:int):void
 		{
 			if (sysApi.isFightContext() == false)
 			{
@@ -75,12 +78,16 @@ package
 				return;
 			}
 			
-			if (!uiApi.getUi(UI_INSTANCE_NAME))
+			var soulstoneUI:Object = uiApi.getUi(UI_INSTANCE_NAME);
+			if (soulstoneUI)
 			{
-				uiApi.loadUi(UI_NAME, UI_INSTANCE_NAME, minimized);
+				var soulstoneUIScript:SoulStoneUi = soulstoneUI.uiClass;
 				
-				sysApi.addHook(GameFightStart, onGameFightStart);
-				sysApi.addHook(GameFightEnd, onGameFightEnd);
+				soulstoneUIScript.displayMonster(monsterUID);
+			}
+			else
+			{
+				_pendingMonsters.push(monsterUID);
 			}
 		}
 		
@@ -97,7 +104,18 @@ package
 		{
 			if (fightType == FightTypeEnum.FIGHT_TYPE_PvM && !isSpectator)
 			{
-				sysApi.dispatchHook(ModuleSoulstoneOpen, true);
+				if (!uiApi.getUi(UI_INSTANCE_NAME))
+				{
+					sysApi.addHook(GameFightStart, onGameFightStart);
+					sysApi.addHook(GameFightEnd, onGameFightEnd);
+					
+					var soulstoneUIScript:SoulStoneUi = uiApi.loadUi(UI_NAME, UI_INSTANCE_NAME).uiClass;
+				
+					while (_pendingMonsters.length)
+					{
+						soulstoneUIScript.displayMonster(_pendingMonsters.shift());
+					}
+				}
 			}
 		}
 		

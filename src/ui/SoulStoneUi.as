@@ -83,17 +83,18 @@ package ui
 		 */
 		public function main(params:Object):void
 		{
-			var minimized:Boolean = params as Boolean;
-			
 			uiApi.addComponentHook(btn_close, ComponentHookList.ON_RELEASE);
 			uiApi.addComponentHook(btn_open, ComponentHookList.ON_RELEASE);
 			
 			sysApi.addHook(UpdatePreFightersList, onUpdatePreFightersList);
 			sysApi.addHook(WeaponUpdate, onWeaponUpdate);
 			
-			displayWeapon(playCharApi.getWeapon());
-			displayGrid(false);
-			displayUI(!minimized);
+			displayUI(false);
+		}
+		
+		public function displayMonster(monsterUID:int):void
+		{
+			
 		}
 		
 		//::///////////////////////////////////////////////////////////
