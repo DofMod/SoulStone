@@ -83,13 +83,15 @@ package ui
 		 */
 		public function main(params:Object):void
 		{
-			displayUI(false);
+			var minimized:Boolean = params as Boolean;
 			
 			uiApi.addComponentHook(btn_close, ComponentHookList.ON_RELEASE);
 			uiApi.addComponentHook(btn_open, ComponentHookList.ON_RELEASE);
 			
 			sysApi.addHook(UpdatePreFightersList, onUpdatePreFightersList);
 			sysApi.addHook(WeaponUpdate, onWeaponUpdate);
+			
+			displayUI(!minimized);
 		}
 		
 		//::///////////////////////////////////////////////////////////

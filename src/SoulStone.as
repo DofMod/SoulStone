@@ -61,7 +61,7 @@ package
 		{
 			if (!uiApi.getUi(UI_INSTANCE_NAME))
 			{
-				uiApi.loadUi(UI_NAME, UI_INSTANCE_NAME);
+				uiApi.loadUi(UI_NAME, UI_INSTANCE_NAME, minimized);
 				
 				sysApi.addHook(GameFightStart, onGameFightStart);
 				sysApi.addHook(GameFightEnd, onGameFightEnd);
