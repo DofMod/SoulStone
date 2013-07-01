@@ -59,6 +59,13 @@ package
 		 */
 		private function onModuleSoulstoneOpen(minimized:Boolean = false):void
 		{
+			if (sysApi.isFightContext() == false)
+			{
+				sysApi.log(4, "Can not open UI outside of fight context.");
+				
+				return;
+			}
+			
 			if (!uiApi.getUi(UI_INSTANCE_NAME))
 			{
 				uiApi.loadUi(UI_NAME, UI_INSTANCE_NAME, minimized);

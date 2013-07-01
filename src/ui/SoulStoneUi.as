@@ -261,11 +261,6 @@ package ui
 		 */
 		private function getEnnemiesMaxLevel():int
 		{
-			if (sysApi.isFightContext() == false)
-			{
-				return 0;
-			}
-			
 			var fighterMaxLevel:int = 0;
 			
 			for each (var fighterId:int in fightApi.getFighters())
