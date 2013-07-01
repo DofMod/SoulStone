@@ -1,6 +1,7 @@
 package
 {
 	import d2api.DataApi;
+	import d2api.FightApi;
 	import d2api.SystemApi;
 	import d2api.UiApi;
 	import d2data.Monster;
@@ -35,6 +36,7 @@ package
 		public var uiApi:UiApi;
 		public var sysApi:SystemApi;
 		public var dataApi:DataApi;
+		public var fightApi:FightApi;
 		
 		//::///////////////////////////////////////////////////////////
 		//::// Public methods
@@ -62,6 +64,13 @@ package
 			if (sysApi.isFightContext() == false)
 			{
 				sysApi.log(4, "Can not open UI outside of fight context.");
+				
+				return;
+			}
+			
+			if (fightApi.preFightIsActive() == false)
+			{
+				sysApi.log(4, "Can not open UI whan fight is sarted.");
 				
 				return;
 			}
