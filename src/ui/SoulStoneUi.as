@@ -147,11 +147,11 @@ package ui
 				}
 			}
 			
-			displayMonsterList(matchMonsters);
-			updateWeapon(_monsterMaxLevel);
-			
 			if (matchMonsters.length > 0)
 			{
+				updateWeapon(_monsterMaxLevel);
+				
+				displayMonsterList(matchMonsters);
 				displayUI(true);
 			}
 		}
@@ -225,6 +225,8 @@ package ui
 					
 					break;
 				case btn_open:
+					updateWeapon(_monsterMaxLevel);
+					
 					displayUI(true);
 					
 					break;
