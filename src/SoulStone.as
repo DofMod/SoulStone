@@ -47,7 +47,7 @@ package
 		
 		public function main():void
 		{
-			sysApi.createHook("ModuleSoulstoneOpen");
+			sysApi.createHook("ModuleSoulstoneDisplayMonster");
 			
 			sysApi.addHook(GameFightJoin, onGameFightJoin);
 			sysApi.addHook(ModuleSoulstoneDisplayMonster, onModuleSoulstoneDisplayMonster);
