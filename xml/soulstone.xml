@@ -34,13 +34,13 @@
 		<!-- Second container, il contient tous les elements pouvant être masqués -->
 		<Container name="ctr_main">
 
-			<Texture>
+			<Texture name="tx_background">
 				<Size>
 					<AbsDimension x="400"
 								  y="300" />
 				</Size>
 
-				<uri>[local.assets]tx_darkBg</uri>
+				<uri>[local.assets]tx_generalBackground</uri>
 			</Texture>
 
 			<Grid name="grid_stones">
@@ -110,8 +110,8 @@
 			<TextArea name="texta_monster">
 				<Anchors>
 					<Anchor>
-						<AbsDimension x="10"
-									  y="210" />
+						<AbsDimension x="20"
+									  y="200" />
 					</Anchor>
 				</Anchors>
 				<Size>
@@ -127,8 +127,8 @@
 			<Label name="lb_weapon">
 				<Anchors>
 					<Anchor>
-						<AbsDimension x="60"
-									  y="10" />
+						<AbsDimension x="80"
+									  y="20" />
 					</Anchor>
 				</Anchors>
 				<Size>
@@ -144,8 +144,8 @@
 			<Label name="lb_weapon_stats">
 				<Anchors>
 					<Anchor>
-						<AbsDimension x="60"
-									  y="35" />
+						<AbsDimension x="80"
+									  y="45" />
 					</Anchor>
 				</Anchors>
 				<Size>
@@ -160,8 +160,8 @@
 			<Label name="lb_info">
 				<Anchors>
 					<Anchor>
-						<AbsDimension x="10"
-									  y="65" />
+						<AbsDimension x="20"
+									  y="75" />
 					</Anchor>
 				</Anchors>
 				<Size>
@@ -179,8 +179,8 @@
 			<Texture name="tx_slot_weapon">
 				<Anchors>
 					<Anchor>
-						<AbsDimension x="10"
-									  y="15" />
+						<AbsDimension x="30"
+									  y="25" />
 					</Anchor>
 				</Anchors>
 				<Size>
@@ -194,8 +194,8 @@
 			<Texture name="tx_weapon">
 				<Anchors>
 					<Anchor>
-						<AbsDimension x="10"
-									  y="15" />
+						<AbsDimension x="30"
+									  y="25" />
 					</Anchor>
 				</Anchors>
 				<Size>
@@ -207,24 +207,21 @@
 			<!-- Bouton pour masquer cette interface -->
 			<iconButton name="btn_close">
 				<Anchors>
-					<Anchor point="TOPRIGHT"
-							relativePoint="TOPRIGHT">
-						<AbsDimension x="-5"
-									  y="0" />
-					</Anchor>
+					<Anchor relativeTo="tx_background"
+							point="TOPRIGHT"
+							relativePoint="TOPRIGHT" />
 				</Anchors>
 				<Size>
-					<AbsDimension x="30"
-								  y="30" />
+					<AbsDimension x="57" y="36" />
 				</Size>
-
-				<uri>[local.localAssets]soulstone</uri>
-			</iconButton>
+				
+				<uri>[local.assets]btn_cornerCross</uri>
+        	</iconButton>
 
 			<Texture>
 				<Anchors>
 					<Anchor>
-						<AbsDimension x="310"
+						<AbsDimension x="300"
 									  y="210" />
 					</Anchor>
 				</Anchors>
