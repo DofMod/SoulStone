@@ -1,5 +1,6 @@
 package ui
 {
+	import d2actions.ChatTextOutput;
 	import d2actions.ObjectSetPosition;
 	import d2api.ChatApi;
 	import d2api.DataApi;
@@ -22,6 +23,7 @@ package ui
 	import d2data.ItemWrapper;
 	import d2data.Monster;
 	import d2enums.CharacterInventoryPositionEnum;
+	import d2enums.ChatChannelsMultiEnum;
 	import d2enums.ComponentHookList;
 	import d2enums.LocationEnum;
 	import d2hooks.UpdatePreFightersList;
@@ -238,6 +240,7 @@ package ui
 					if (target is Slot && target.data != null)
 					{
 						sysApi.sendAction(new ObjectSetPosition(target.data.objectUID, CharacterInventoryPositionEnum.ACCESSORY_POSITION_WEAPON));
+						sysApi.sendAction(new ChatTextOutput("[SoulStone module] Pierre équipée : " + chatApi.newChatItem(target.data), ChatChannelsMultiEnum.CHANNEL_TEAM, "", [target.data]));
 					}
 			}
 		}
