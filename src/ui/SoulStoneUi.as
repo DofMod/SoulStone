@@ -17,9 +17,7 @@ package ui
 	import d2components.Label;
 	import d2components.Slot;
 	import d2components.TextArea;
-	import d2components.Texture;
 	import d2data.EffectInstance;
-	import d2data.EffectInstanceInteger;
 	import d2data.ItemWrapper;
 	import d2data.Monster;
 	import d2enums.CharacterInventoryPositionEnum;

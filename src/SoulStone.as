@@ -4,13 +4,11 @@ package
 	import d2api.FightApi;
 	import d2api.SystemApi;
 	import d2api.UiApi;
-	import d2data.Monster;
 	import d2enums.FightTypeEnum;
 	import d2hooks.GameFightEnd;
 	import d2hooks.GameFightJoin;
 	import d2hooks.GameFightStart;
 	import flash.display.Sprite;
-	import flash.utils.Dictionary;
 	import hooks.ModuleSoulstoneDisplayMonster;
 	import ui.SoulStoneUi;
 	
@@ -73,7 +71,7 @@ package
 			
 			if (fightApi.preFightIsActive() == false)
 			{
-				sysApi.log(4, "Can not open UI whan fight is sarted.");
+				sysApi.log(4, "Can not open UI when fight is sarted.");
 				
 				return;
 			}
