@@ -19,6 +19,7 @@
     <!-- Liste des interfaces du module, avec nom de l'interface, nom du fichier squelette .xml et nom de la classe script d'interface -->
     <uis>
         <ui name="soulstone" file="xml/soulstone.xml" class="ui::SoulStoneUi" />
+        <ui name="soulstone_weapon" file="xml/soulstone_weapon.xml" class="ui::SoulStoneWeaponUi" />
     </uis>
     
     <script>SoulStone.swf</script>

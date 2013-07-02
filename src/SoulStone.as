@@ -9,9 +9,11 @@ package
 	import d2hooks.GameFightEnd;
 	import d2hooks.GameFightJoin;
 	import d2hooks.GameFightStart;
+	import d2hooks.WeaponUpdate;
 	import flash.display.Sprite;
 	import hooks.ModuleSoulstoneDisplayMonster;
 	import ui.SoulStoneUi;
+	import ui.SoulStoneWeaponUi;
 	import utils.MapIdUtils;
 	
 	/**
@@ -26,11 +28,13 @@ package
 		//::///////////////////////////////////////////////////////////
 		
 		// UI include
-		private const includes:Array = [SoulStoneUi];
+		private const includes:Array = [SoulStoneUi, SoulStoneWeaponUi];
 		
 		// Some constants
 		private static const UI_NAME:String = "soulstone";
 		private static const UI_INSTANCE_NAME:String = "soulstone";
+		private static const UI_WEAPON_NAME:String = "soulstone_weapon";
+		private static const UI_WEAPON_INSTANCE_NAME:String = "soulstone_weapon";
 		
 		// APIs
 		public var uiApi:UiApi;
@@ -146,12 +150,13 @@ package
 		 */
 		private function onGameFightStart():void
 		{
+			sysApi.removeHook(GameFightStart);
+			
 			if (uiApi.getUi(UI_INSTANCE_NAME))
 			{
 				uiApi.unloadUi(UI_INSTANCE_NAME);
 			}
 			
-			sysApi.removeHook(GameFightStart);
 		}
 		
 		/**
@@ -161,12 +166,35 @@ package
 		 */
 		private function onGameFightEnd(result:Object):void
 		{
+			sysApi.removeHook(GameFightEnd);
+			
 			if (uiApi.getUi(UI_INSTANCE_NAME))
 			{
 				uiApi.unloadUi(UI_INSTANCE_NAME);
 			}
 			
-			sysApi.removeHook(GameFightEnd);
+			if (playerApi.getWeapon() == null)
+			{
+				sysApi.addHook(WeaponUpdate, onWeaponUpdate);
+				
+				if (!uiApi.getUi(UI_WEAPON_INSTANCE_NAME))
+				{
+					uiApi.loadUi(UI_WEAPON_INSTANCE_NAME);
+				}
+			}
+		}
+		
+		/**
+		 * Hook reporting the modification of the equiped weapon.
+		 */
+		private function onWeaponUpdate():void
+		{
+			sysApi.removeHook(WeaponUpdate);
+			
+			if (uiApi.getUi(UI_WEAPON_INSTANCE_NAME))
+			{
+				uiApi.unloadUi(UI_WEAPON_INSTANCE_NAME);
+			}
 		}
 	}
 }

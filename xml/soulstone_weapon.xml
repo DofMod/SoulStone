@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Definition>
+
+	<!-- Import d'un template pour creer un bouton simple à partir d'une texture -->
+	<Import url="[config.mod.template.button]simpleButton.xml" />
+	<Import url="[config.mod.template.button]iconButton.xml" />
+	<Import url="[config.mod.template.button]checkBox.xml" />
+
+	<Constants>
+		<!-- Enregistrement des chemins vers les assets d'interface et les css pour les textes -->
+		<Constant name="assets" value="[config.ui.skin]assets.swf|" />
+		<Constant name="css" value="[config.ui.skin]css/" />
+		<Constant name="over_uri" value="[config.ui.skin]bitmap/over.png" />
+		<Constant name="selected_uri" value="[config.ui.skin]bitmap/selected.png" />
+		<Constant name="acceptDrop_uri" value="[config.ui.skin]bitmap/acceptDrop.png" />
+		<Constant name="refuseDrop_uri" value="[config.ui.skin]bitmap/refuseDrop.png" />
+		<Constant name="bitmap" value="[config.ui.skin]bitmap/" />
+
+		<Constant name="localCss" value="[config.mod.path]SoulStone/" />
+		<Constant name="localAssets" value="[config.mod.path]SoulStone/assets.swf|" />
+	</Constants>
+
+	<Container>
+		<mouseEnabled>true</mouseEnabled>
+		<Anchors>
+			<Anchor>
+				<AbsDimension x="10"
+							  y="735" />
+			</Anchor>
+		</Anchors>
+
+		<Texture name="tx_background">
+			<Size>
+				<AbsDimension x="92"
+							  y="117" />
+			</Size>
+
+			<uri>[local.assets]tx_generalBackground</uri>
+		</Texture>
+		
+		<iconButton name="btn_close">
+			<Anchors>
+				<Anchor relativeTo="tx_background"
+						point="TOPRIGHT"
+						relativePoint="TOPRIGHT" >
+					<AbsDimension x="3" />
+				</Anchor>
+			</Anchors>
+			<Size>
+				<AbsDimension x="57" y="36" />
+			</Size>
+			
+			<uri>[local.assets]btn_cornerCross</uri>
+		</iconButton>
+
+		<Slot name="slot_weapon">
+			<Anchors>
+				<Anchor>
+					<AbsDimension x="20"
+								  y="45" />
+				</Anchor>
+			</Anchors>
+			<Size>
+				<AbsDimension x="52"
+							  y="52" />
+			</Size>
+
+			<emptyTexture>[local.assets]tx_slotItem1</emptyTexture>
+			<css>[local.css]normal.css</css>
+			<highlightTexture>[local.over_uri]</highlightTexture>
+			<selectedTexture>[local.selected_uri]</selectedTexture>
+			<acceptDragTexture>[local.acceptDrop_uri]</acceptDragTexture>
+			<refuseDragTexture>[local.refuseDrop_uri]</refuseDragTexture>
+		</Slot>
+
+	</Container>
+</Definition>
