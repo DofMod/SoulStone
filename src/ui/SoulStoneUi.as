@@ -70,6 +70,7 @@ package ui
 		public var texta_monster:TextArea;
 		
 		private var _monsterMaxLevel:int = 0;
+		private var _equipedWeapon:ItemWrapper = null;
 		private var _pendingMonsters:Array = new Array();
 		private var _displayedMonsters:Array = new Array();
 		
@@ -84,6 +85,8 @@ package ui
 		 */
 		public function main(params:Object):void
 		{
+			_equipedWeapon = playCharApi.getWeapon();
+			
 			uiApi.addComponentHook(btn_close, ComponentHookList.ON_RELEASE);
 			uiApi.addComponentHook(btn_open, ComponentHookList.ON_RELEASE);
 			
@@ -131,7 +134,9 @@ package ui
 		 */
 		public function onWeaponUpdate():void
 		{
-			updateWeapon(_monsterMaxLevel);
+			_equipedWeapon = playCharApi.getWeapon()
+			
+			updateWeapon(_monsterMaxLevel, _equipedWeapon);
 		}
 		
 		/**
@@ -146,7 +151,7 @@ package ui
 			{
 				_monsterMaxLevel = maxLevel;
 				
-				updateWeapon(_monsterMaxLevel);
+				updateWeapon(_monsterMaxLevel, _equipedWeapon);
 			}
 			
 			if (_displayedMonsters.indexOf(fighterId) != -1)
@@ -315,9 +320,8 @@ package ui
 		 * 
 		 * @param	levelMax	Level max of the monsters.
 		 */
-		private function updateWeapon(levelMax:int):void
+		private function updateWeapon(levelMax:int, weapon:ItemWrapper):void
 		{
-			var weapon:ItemWrapper = playCharApi.getWeapon();
 			var advisedSoulStone:String = bestSoulStoneToUse(levelMax);
 			
 			displayWeapon(weapon);
