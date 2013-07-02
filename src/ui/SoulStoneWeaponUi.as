@@ -58,6 +58,8 @@ package ui
 			
 			uiApi.addComponentHook(btn_close, ComponentHookList.ON_RELEASE);
 			uiApi.addComponentHook(slot_weapon, ComponentHookList.ON_RELEASE);
+			uiApi.addComponentHook(slot_weapon, ComponentHookList.ON_ROLL_OVER);
+			uiApi.addComponentHook(slot_weapon, ComponentHookList.ON_ROLL_OUT);
 		}
 		
 		//::///////////////////////////////////////////////////////////
@@ -103,6 +105,8 @@ package ui
 					
 					break;
 				case slot_weapon:
+					uiApi.hideTooltip();
+					
 					if (slot_weapon.data)
 					{
 						sysApi.sendAction(new ObjectSetPosition(slot_weapon.data.objectUID, CharacterInventoryPositionEnum.ACCESSORY_POSITION_WEAPON));
