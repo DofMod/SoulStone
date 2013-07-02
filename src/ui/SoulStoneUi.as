@@ -41,6 +41,7 @@ package ui
 		//::// Variables
 		//::///////////////////////////////////////////////////////////
 		
+		// APIs
 		public var sysApi:SystemApi;
 		public var uiApi:UiApi;
 		public var playCharApi:PlayedCharacterApi;
@@ -51,6 +52,7 @@ package ui
 		public var socialApi:SocialApi;
 		public var mapApi:MapApi;
 		
+		// Components
 		public var lb_weapon:Label;
 		public var lb_weapon_stats:Label;
 		public var lb_info:Label;
@@ -67,6 +69,7 @@ package ui
 		
 		public var texta_monster:TextArea;
 		
+		// Some globals
 		private var _monsterMaxLevel:int = 0;
 		private var _equipedWeapon:ItemWrapper = null;
 		private var _pendingMonsters:Array = new Array();
