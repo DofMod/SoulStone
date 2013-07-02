@@ -96,6 +96,11 @@ package ui
 			displayUI(false);
 		}
 		
+		/**
+		 * Add the monster to the interface if he is in the fighters list.
+		 * 
+		 * @param	monsterUID
+		 */
 		public function displayMonster(monsterUID:int):void
 		{
 			if (_displayedMonsters.indexOf(monsterUID) != -1 || _pendingMonsters.indexOf(monsterUID) != -1)
