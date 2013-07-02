@@ -358,6 +358,8 @@ package ui
 						lb_info.text = "<b>La pierre d'âme équipée est bonne sa puissance mais sa n'est pas optimale \nPierre optimale : <\b>" + advisedSoulStone;
 						lb_info.colorText = 0xFF6A00; // Orange
 					}
+					
+					displayGrid(false);
 				}
 				else
 				{
