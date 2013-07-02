@@ -8,6 +8,7 @@ package ui
 	import d2api.UiApi;
 	import d2components.ButtonContainer;
 	import d2components.Slot;
+	import d2components.Texture;
 	import d2data.ItemWrapper;
 	import d2enums.CharacterInventoryPositionEnum;
 	import d2enums.ComponentHookList;
@@ -36,6 +37,8 @@ package ui
 		
 		public var btn_close:ButtonContainer;
 		
+		public var tx_empty:Texture;
+		
 		//::///////////////////////////////////////////////////////////
 		//::// Public methods
 		//::///////////////////////////////////////////////////////////
@@ -50,6 +53,8 @@ package ui
 			var weapon:ItemWrapper = params.weapon;
 			
 			slot_weapon.data = weapon;
+			
+			tx_empty.visible = (weapon == null);
 			
 			uiApi.addComponentHook(btn_close, ComponentHookList.ON_RELEASE);
 			uiApi.addComponentHook(slot_weapon, ComponentHookList.ON_RELEASE);
