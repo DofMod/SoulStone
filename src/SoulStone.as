@@ -5,11 +5,13 @@ package
 	import d2api.PlayedCharacterApi;
 	import d2api.SystemApi;
 	import d2api.UiApi;
+	import d2data.ItemWrapper;
 	import d2enums.FightTypeEnum;
 	import d2hooks.GameFightEnd;
 	import d2hooks.GameFightJoin;
 	import d2hooks.GameFightStart;
 	import d2hooks.WeaponUpdate;
+	import enums.ItemTypeIdEnum;
 	import flash.display.Sprite;
 	import hooks.ModuleSoulstoneDisplayMonster;
 	import ui.SoulStoneUi;
@@ -45,6 +47,7 @@ package
 		
 		// Some globals
 		private var _pendingMonsters:Array = new Array();
+		private var _lastEquipedWeapon:ItemWrapper = null;
 		
 		//::///////////////////////////////////////////////////////////
 		//::// Public methods
@@ -52,10 +55,14 @@ package
 		
 		public function main():void
 		{
+			saveWeapon(playerApi.getWeapon());
+			
 			sysApi.createHook("ModuleSoulstoneDisplayMonster");
 			
 			sysApi.addHook(GameFightJoin, onGameFightJoin);
 			sysApi.addHook(ModuleSoulstoneDisplayMonster, onModuleSoulstoneDisplayMonster);
+			sysApi.addHook(WeaponUpdate, onWeaponUpdate);
+			sysApi.addHook(GameFightEnd, onGameFightEnd);
 		}
 		
 		//::///////////////////////////////////////////////////////////
@@ -133,7 +140,6 @@ package
 				if (!uiApi.getUi(UI_INSTANCE_NAME))
 				{
 					sysApi.addHook(GameFightStart, onGameFightStart);
-					sysApi.addHook(GameFightEnd, onGameFightEnd);
 					
 					var soulstoneUIScript:SoulStoneUi = uiApi.loadUi(UI_NAME, UI_INSTANCE_NAME).uiClass;
 				
@@ -166,8 +172,6 @@ package
 		 */
 		private function onGameFightEnd(result:Object):void
 		{
-			sysApi.removeHook(GameFightEnd);
-			
 			if (uiApi.getUi(UI_INSTANCE_NAME))
 			{
 				uiApi.unloadUi(UI_INSTANCE_NAME);
@@ -175,11 +179,9 @@ package
 			
 			if (playerApi.getWeapon() == null)
 			{
-				sysApi.addHook(WeaponUpdate, onWeaponUpdate);
-				
 				if (!uiApi.getUi(UI_WEAPON_INSTANCE_NAME))
 				{
-					uiApi.loadUi(UI_WEAPON_INSTANCE_NAME);
+					uiApi.loadUi(UI_WEAPON_NAME, UI_WEAPON_INSTANCE_NAME, {"weapon":_lastEquipedWeapon});
 				}
 			}
 		}
@@ -189,11 +191,28 @@ package
 		 */
 		private function onWeaponUpdate():void
 		{
-			sysApi.removeHook(WeaponUpdate);
+			saveWeapon(playerApi.getWeapon());
 			
 			if (uiApi.getUi(UI_WEAPON_INSTANCE_NAME))
 			{
 				uiApi.unloadUi(UI_WEAPON_INSTANCE_NAME);
+			}
+		}
+		
+		//::///////////////////////////////////////////////////////////
+		//::// Private methods
+		//::///////////////////////////////////////////////////////////
+		
+		/**
+		 * Save the currently equiped weapon if present and not a soulstone.
+		 * 
+		 * @param	weapon	The currently equiped weapon (can be null).
+		 */
+		private function saveWeapon(weapon:ItemWrapper):void
+		{
+			if (weapon && weapon.typeId != ItemTypeIdEnum.SOULSTONE)
+			{
+				_lastEquipedWeapon = weapon;
 			}
 		}
 	}

@@ -1,5 +1,6 @@
 package ui
 {
+	import d2actions.ObjectSetPosition;
 	import d2api.DataApi;
 	import d2api.PlayedCharacterApi;
 	import d2api.StorageApi;
@@ -7,7 +8,10 @@ package ui
 	import d2api.UiApi;
 	import d2components.ButtonContainer;
 	import d2components.Slot;
+	import d2data.ItemWrapper;
+	import d2enums.CharacterInventoryPositionEnum;
 	import d2enums.ComponentHookList;
+	import d2enums.LocationEnum;
 	
 	/**
 	 * Equip weapon ui class.
@@ -43,9 +47,12 @@ package ui
 		 */
 		public function main(params:Object):void
 		{
-			slot_weapon.data = playerApi.getWeapon();
+			var weapon:ItemWrapper = params.weapon;
+			
+			slot_weapon.data = weapon;
 			
 			uiApi.addComponentHook(btn_close, ComponentHookList.ON_RELEASE);
+			uiApi.addComponentHook(slot_weapon, ComponentHookList.ON_RELEASE);
 		}
 		
 		//::///////////////////////////////////////////////////////////
@@ -61,8 +68,9 @@ package ui
 		{
 			switch (target)
 			{
-				//var tooltip:Object = uiApi.textTooltipInfo("");
-				//uiApi.showTooltip(tooltip, target, false, "standard", LocationEnum.POINT_BOTTOM, LocationEnum.POINT_TOP, 3, null, null, null, "TextInfo");
+				case slot_weapon:
+					var tooltip:Object = uiApi.textTooltipInfo(slot_weapon.data ? slot_weapon.data.name : "Vous n'avez jamais eu d'arme depuis votre connexion.");
+					uiApi.showTooltip(tooltip, target, false, "standard", LocationEnum.POINT_BOTTOM, LocationEnum.POINT_TOP, 3, null, null, null, "TextInfo");
 			}
 		}
 		
@@ -86,14 +94,29 @@ package ui
 			switch (target)
 			{
 				case btn_close:
-					uiApi.unloadUi(uiApi.me().name);
-				
-				//sysApi.sendAction(new ObjectSetPosition(item, CharacterInventoryPositionEnum.ACCESSORY_POSITION_WEAPON));
+					closeUi();
+					
+					break;
+				case slot_weapon:
+					if (slot_weapon.data)
+					{
+						sysApi.sendAction(new ObjectSetPosition(slot_weapon.data.objectUID, CharacterInventoryPositionEnum.ACCESSORY_POSITION_WEAPON));
+					}
+					
+					break;
 			}
 		}
 	
 		//::///////////////////////////////////////////////////////////
 		//::// Private methods
 		//::///////////////////////////////////////////////////////////
+		
+		/**
+		 * Close the UI.
+		 */
+		private function closeUi():void
+		{
+			uiApi.unloadUi(uiApi.me().name);			
+		}
 	}
 }
