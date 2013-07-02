@@ -76,6 +76,20 @@ package
 				return;
 			}
 			
+			if (fightApi.getFightType() != FightTypeEnum.FIGHT_TYPE_PvM)
+			{
+				sysApi.log(4, "Can not open UI if it's not de PvM fight");
+				
+				return;
+			}
+			
+			if (fightApi.isSpectator())
+			{
+				sysApi.log(4, "Can not open UI if character is a spectator");
+				
+				return;
+			}
+			
 			var soulstoneUI:Object = uiApi.getUi(UI_INSTANCE_NAME);
 			if (soulstoneUI)
 			{
