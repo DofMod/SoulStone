@@ -70,7 +70,8 @@ package ui
 		public var texta_monster:TextArea;
 		
 		private var _monsterMaxLevel:int = 0;
-		private var _isFightWithArchiOrBoss:Boolean;
+		private var _pendingMonsters:Array = new Array();
+		private var _displayedMonsters:Array = new Array();
 		
 		//::///////////////////////////////////////////////////////////
 		//::// Public methods
@@ -94,7 +95,31 @@ package ui
 		
 		public function displayMonster(monsterUID:int):void
 		{
+			if (_displayedMonsters.indexOf(monsterUID) != -1 || _pendingMonsters.indexOf(monsterUID) != -1)
+			{
+				return;
+			}
 			
+			var monsterFound:Boolean = false;
+			for each (var fighterUID:int in fightApi.getFighters())
+			{
+				if (fighterUID == monsterUID)
+				{
+					monsterFound = true;
+				}
+			}
+			
+			if (monsterFound)
+			{
+				_displayedMonsters.push(monsterUID);
+				
+				displayMonsterList(_displayedMonsters);
+				displayUI(true);
+			}
+			else
+			{
+				_pendingMonsters.push(monsterUID);
+			}
 		}
 		
 		//::///////////////////////////////////////////////////////////
@@ -106,53 +131,59 @@ package ui
 		 */
 		public function onWeaponUpdate():void
 		{
-			//Si le joueur change d'arme lui même, on met à jour
-			if (_isFightWithArchiOrBoss)
-			{
-				updateWeapon(_monsterMaxLevel);
-			}
+			updateWeapon(_monsterMaxLevel);
 		}
 		
 		/**
 		 * Hook reporting the update of a fighters in pre-fight.
 		 * 
-		 * @param	newFighterId	The identifier of the fighter to update (if no value: ).
+		 * @param	fighterId	The identifier of the fighter to update (if no value: ).
 		 */
-		public function onUpdatePreFightersList(newFighterId:int = 0):void
+		public function onUpdatePreFightersList(fighterId:int = 0):void
 		{
-			_monsterMaxLevel = getEnnemiesMaxLevel();
-			_isFightWithArchiOrBoss = false;
-			var matchMonsters:Array = new Array();
-			
-			for each (var fighterId:int in fightApi.getFighters())
+			var maxLevel:int = getEnnemiesMaxLevel();
+			if (maxLevel != _monsterMaxLevel)
 			{
-				var monsterGenericId:int = fightApi.getMonsterId(fighterId);
-				if (monsterGenericId == -1)
-				{
-					continue;
-				}
+				_monsterMaxLevel = maxLevel;
 				
-				if (fightApi.getFighterInformations(fighterId).team != "defender")
-				{
-					continue;
-				}
-				
-				var monsterLevel:int = fightApi.getFighterLevel(fighterId);
-				var monster:Monster = dataApi.getMonsterFromId(monsterGenericId);
-				
-				if (monster && (monster.isMiniBoss || monster.isBoss))
-				{
-					matchMonsters.push({"level":monsterLevel, "name":monster.name});
-					
-					_isFightWithArchiOrBoss = true;
-				}
+				updateWeapon(_monsterMaxLevel);
 			}
 			
-			if (matchMonsters.length > 0)
+			if (_displayedMonsters.indexOf(fighterId) != -1)
 			{
-				updateWeapon(_monsterMaxLevel);
+				return;
+			}
+			
+			var index:int = _pendingMonsters.indexOf(fighterId);
+			if (index != -1)
+			{
+				_displayedMonsters.push(_pendingMonsters[index]);
 				
-				displayMonsterList(matchMonsters);
+				_pendingMonsters.splice(index, 1);
+				
+				displayMonsterList(_displayedMonsters);
+				displayUI(true);
+				
+				return
+			}
+			
+			var monsterGenericId:int = fightApi.getMonsterId(fighterId);
+			if (monsterGenericId == -1)
+			{
+				return;
+			}
+			
+			if (fightApi.getFighterInformations(fighterId).team != "defender")
+			{
+				return;
+			}
+			
+			var monster:Monster = dataApi.getMonsterFromId(monsterGenericId);
+			if (monster && (monster.isMiniBoss || monster.isBoss))
+			{
+				_displayedMonsters.push(fighterId);
+				
+				displayMonsterList(_displayedMonsters);
 				displayUI(true);
 			}
 		}
@@ -226,8 +257,6 @@ package ui
 					
 					break;
 				case btn_open:
-					updateWeapon(_monsterMaxLevel);
-					
 					displayUI(true);
 					
 					break;
@@ -485,14 +514,23 @@ package ui
 		{
 			texta_monster.text = "";
 			
-			if (monsters.length > 0)
+			for each (var monsterId:int in monsters)
 			{
-				monsters.sortOn("level", Array.NUMERIC);
-				
-				for each (var monster:Object in monsters)
+				var monsterGenericId:int = fightApi.getMonsterId(monsterId);
+				if (monsterGenericId == -1)
 				{
-					texta_monster.appendText(monster.name + " niv. " + monster.level);
+					return;
 				}
+				
+				if (fightApi.getFighterInformations(monsterId).team != "defender")
+				{
+					return;
+				}
+				
+				var monsterLevel:int = fightApi.getFighterLevel(monsterId);
+				var monster:Monster = dataApi.getMonsterFromId(monsterGenericId);
+			
+				texta_monster.appendText(monster.name + " niv. " + monsterLevel);
 			}
 		}
 	}
