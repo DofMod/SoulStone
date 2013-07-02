@@ -95,6 +95,8 @@ package ui
 			sysApi.addHook(UpdatePreFightersList, onUpdatePreFightersList);
 			sysApi.addHook(WeaponUpdate, onWeaponUpdate);
 			
+			displayWeapon(_equipedWeapon);
+			displayGrid(false);
 			displayUI(false);
 		}
 		
@@ -143,7 +145,8 @@ package ui
 		{
 			_equipedWeapon = playCharApi.getWeapon()
 			
-			updateWeapon(_monsterMaxLevel, _equipedWeapon);
+			displayWeapon(_equipedWeapon);
+			displayAdvise(_monsterMaxLevel, _equipedWeapon);
 		}
 		
 		/**
@@ -158,7 +161,7 @@ package ui
 			{
 				_monsterMaxLevel = maxLevel;
 				
-				updateWeapon(_monsterMaxLevel, _equipedWeapon);
+				displayAdvise(_monsterMaxLevel, _equipedWeapon);
 			}
 			
 			if (_displayedMonsters.indexOf(fighterId) != -1)
@@ -323,16 +326,13 @@ package ui
 		}
 		
 		/**
-		 * Update weapon's fields and display grid if needed.
+		 * Update the advise fields.
 		 * 
 		 * @param	levelMax	Level max of the monsters.
+		 * @param	weapon	Currently equiped weapon.
 		 */
-		private function updateWeapon(levelMax:int, weapon:ItemWrapper):void
+		private function displayAdvise(levelMax:int, weapon:ItemWrapper):void
 		{
-			slot_weapon.data = weapon;
-			
-			displayWeapon(weapon);
-			
 			var advisedSoulStone:String = bestSoulStoneToUse(levelMax);
 			if (weapon && weapon.typeId == ItemTypeIdEnum.SOULSTONE)
 			{
@@ -390,6 +390,8 @@ package ui
 		 */
 		private function displayWeapon(weapon:ItemWrapper):void
 		{
+			slot_weapon.data = weapon;
+			
 			if (weapon != null)
 			{
 				lb_weapon.text = chatApi.newChatItem(weapon);
