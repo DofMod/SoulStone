@@ -354,18 +354,20 @@ package ui
 					{
 						lb_info.text = "<b>La pierre d'âme équipée est de puissance optimale<\b>";
 						lb_info.colorText = 0x007F0E; // Green
+						
+						displayGrid(false);
 					}
 					else
 					{
-						lb_info.text = "<b>La pierre d'âme équipée est bonne sa puissance mais sa n'est pas optimale \nPierre optimale : <\b>" + advisedSoulStone;
+						lb_info.text = "<b>La pierre d'âme équipée est trop puissante\nPierre optimale : <\b>" + advisedSoulStone;
 						lb_info.colorText = 0xFF6A00; // Orange
+						
+						displayGrid(true, levelMax);
 					}
-					
-					displayGrid(false);
 				}
 				else
 				{
-					lb_info.text = "<b>Pierre équipée de puissance insuffisante \nPierre optimale : <\b>" + advisedSoulStone;
+					lb_info.text = "<b>La pierre d'âme équipée est trop faible.\nPierre optimale : <\b>" + advisedSoulStone;
 					lb_info.colorText = 0xFF0000; // Red
 					
 					displayGrid(true, levelMax);
@@ -373,7 +375,7 @@ package ui
 			}
 			else
 			{
-				lb_info.text = "<b>Pas de pierre équipée \nPierre optimale : <\b>" + advisedSoulStone;
+				lb_info.text = "<b>Pas de pierre d'âme équipée.\nPierre optimale : <\b>" + advisedSoulStone;
 				lb_info.colorText = 0xFF0000; // Red
 				
 				displayGrid(true, levelMax);
