@@ -328,10 +328,11 @@ package ui
 		 */
 		private function updateWeapon(levelMax:int, weapon:ItemWrapper):void
 		{
-			var advisedSoulStone:String = bestSoulStoneToUse(levelMax);
+			slot_weapon.data = weapon;
 			
 			displayWeapon(weapon);
 			
+			var advisedSoulStone:String = bestSoulStoneToUse(levelMax);
 			if (weapon && weapon.typeId == ItemTypeIdEnum.SOULSTONE)
 			{
 				for each (var effect:EffectInstance in weapon.effects)
@@ -386,8 +387,6 @@ package ui
 		 */
 		private function displayWeapon(weapon:ItemWrapper):void
 		{
-			slot_weapon.data = weapon;
-			
 			if (weapon != null)
 			{
 				lb_weapon.text = chatApi.newChatItem(weapon);
