@@ -27,6 +27,7 @@ package ui
 	import d2hooks.UpdatePreFightersList;
 	import d2hooks.WeaponUpdate;
 	import enums.EffectIdEnum;
+	import enums.ItemIdEnum;
 	import enums.ItemTypeIdEnum;
 	import flash.utils.Dictionary;
 	
@@ -483,8 +484,7 @@ package ui
 			// Get the soulstone of each capture probability, who have minimal power, but power > monsters level max
 			for each (var item:ItemWrapper in storageApi.getViewContent("storageEquipment"))
 			{
-				// 9718 : id of the Kralamour's soulstone
-				if (item.typeId == ItemTypeIdEnum.SOULSTONE && item.id != 9718)
+				if (item.typeId == ItemTypeIdEnum.SOULSTONE && item.id != ItemIdEnum.SOULSTONE_KRALA)
 				{
 					for each (var effect:EffectInstance in item.effects)
 					{
