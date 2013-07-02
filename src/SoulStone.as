@@ -105,7 +105,7 @@ package
 			{
 				var soulstoneUIScript:SoulStoneUi = soulstoneUI.uiClass;
 				
-				soulstoneUIScript.displayMonster(monsterUID);
+				soulstoneUIScript.addMonsterToDisplay(monsterUID);
 			}
 			else
 			{
@@ -135,7 +135,7 @@ package
 				
 					while (_pendingMonsters.length)
 					{
-						soulstoneUIScript.displayMonster(_pendingMonsters.shift());
+						soulstoneUIScript.addMonsterToDisplay(_pendingMonsters.shift());
 					}
 				}
 			}

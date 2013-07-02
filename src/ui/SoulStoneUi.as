@@ -105,7 +105,7 @@ package ui
 		 * 
 		 * @param	monsterUID
 		 */
-		public function displayMonster(monsterUID:int):void
+		public function addMonsterToDisplay(monsterUID:int):void
 		{
 			if (_displayedMonsters.indexOf(monsterUID) != -1 || _pendingMonsters.indexOf(monsterUID) != -1)
 			{
