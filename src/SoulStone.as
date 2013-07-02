@@ -2,6 +2,7 @@ package
 {
 	import d2api.DataApi;
 	import d2api.FightApi;
+	import d2api.PlayedCharacterApi;
 	import d2api.SystemApi;
 	import d2api.UiApi;
 	import d2enums.FightTypeEnum;
@@ -11,6 +12,7 @@ package
 	import flash.display.Sprite;
 	import hooks.ModuleSoulstoneDisplayMonster;
 	import ui.SoulStoneUi;
+	import utils.MapIdUtils;
 	
 	/**
 	 * Main module class (entry point).
@@ -35,6 +37,7 @@ package
 		public var sysApi:SystemApi;
 		public var dataApi:DataApi;
 		public var fightApi:FightApi;
+		public var playerApi:PlayedCharacterApi;
 		
 		// Some globals
 		private var _pendingMonsters:Array = new Array();
@@ -90,6 +93,13 @@ package
 				return;
 			}
 			
+			if (MapIdUtils.isArenaMap(playerApi.currentMap().mapId))
+			{
+				sysApi.log(4, "Can not open UI in arena");
+				
+				return;
+			}
+			
 			var soulstoneUI:Object = uiApi.getUi(UI_INSTANCE_NAME);
 			if (soulstoneUI)
 			{
@@ -114,7 +124,7 @@ package
 		 */
 		private function onGameFightJoin(canBeCancelled:Boolean, canSayReady:Boolean, isSpectator:Boolean, timeMaxBeforeFightStart:int, fightType:uint):void
 		{
-			if (fightType == FightTypeEnum.FIGHT_TYPE_PvM && !isSpectator)
+			if (fightType == FightTypeEnum.FIGHT_TYPE_PvM && !isSpectator && !MapIdUtils.isArenaMap(playerApi.currentMap().mapId))
 			{
 				if (!uiApi.getUi(UI_INSTANCE_NAME))
 				{
