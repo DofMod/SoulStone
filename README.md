@@ -1,7 +1,7 @@
 SoulStone
 =========
 
-By *ExiTeD*
+By *ExiTeD* (improved by *Relena*)
 
 Ce module a pour but d'aider les joueurs à équiper leurs pierres d'âme.
 
@@ -15,9 +15,12 @@ Lorsque le joueur équipe une pierre à partir de cette interface, un message es
 
 ![Interface principale en mode minimisée](http://imageshack.us/a/img839/9059/z1jq.png "Interface principale en mode minimisée")
 
-Le module dispose aussi d'un *Hook* utilisable par les autres modules pour déclencher l'ouverture de l'interface si l'un des monstres présent en combat l’intéresse.
+Le module dispose aussi d'un *Hook* utilisable par les autres modules pour déclencher l'ouverture de l'interface si l'un des monstres présent en combat l’intéresse. Le prototype de ce Hook est disponible dans la bibliothèque
+[DofusModulesUtils](https://github.com/Dofus/DofusModulesUtils "Bibliothèque DofusModulesUtils").
 
-En parallèle, le module dispose aussi d'une fonction pour proposer au joueur de reéquiper sa dernière arme connue, quand celui-ci fini un combat sans CàC (le cas le plus courant être quand celui-ci à capturé un monstre). 
+    sysApi.addHook(ModuleSoulstoneDisplayMonster, onModuleSoulstoneDisplayMonster);
+
+En parallèle, le module dispose aussi d'une fonction pour proposer au joueur, quand celui-ci fini un combat sans CàC, de reéquiper sa dernière arme connue (le cas le plus courant êtant quand celui-ci à capturé un monstre). 
 
 ![Interface de reéquipement du CàC](http://imageshack.us/a/img24/6277/9er.png "Interface de reéquipement du CàC")
 
