@@ -57,7 +57,7 @@ package
 		{
 			saveWeapon(playerApi.getWeapon());
 			
-			sysApi.createHook("ModuleSoulstoneDisplayMonster");
+			sysApi.createHook(ModuleSoulstoneDisplayMonster.name);
 			
 			sysApi.addHook(GameFightJoin, onGameFightJoin);
 			sysApi.addHook(ModuleSoulstoneDisplayMonster, onModuleSoulstoneDisplayMonster);
