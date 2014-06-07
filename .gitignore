@@ -1,6 +1,4 @@
 obj/
 SoulStone.swf
-SoulStone.as3proj
-SoulStone.lxml
-*.lnk
-install_win.py
+*.as3proj
+*.lxml

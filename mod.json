@@ -1,0 +1,13 @@
+[
+{
+    "name": "SoulStone",
+    "author": "ExiTeD",
+    "contributos": ["Relena"],
+    "url": "https://github.com/DofMod/SoulStone/releases/download/v2.11_1.0/SoulStone_2.11_1.0.zip",
+    "description": "A module to help you to chose the right SoulStone to equip",
+    "category": "Fight",
+    "version": "1.0",
+    "dofusVersion": "2.11",
+    "lastUpdateDate": "2013-07-07"
+}
+]

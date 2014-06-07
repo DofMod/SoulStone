@@ -1,0 +1,13 @@
+[
+{
+    "name": "${name}",
+    "author": "${author}",
+    "contributos": ${contributors},
+    "url": "https://github.com/DofMod/${name}/releases/download/${tag}/${filename}.zip",
+    "description": "A module to help you to chose the right SoulStone to equip",
+    "category": "Fight",
+    "version": "${version}",
+    "dofusVersion": "${dofusVersion}",
+    "lastUpdateDate": "${date}"
+}
+]
