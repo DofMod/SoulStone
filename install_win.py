@@ -17,7 +17,7 @@ authorName = "ExiTeD"
 contributorsName = ["Relena"]
 
 srcPath = "."
-dstPath = op.normpath(op.join(os.environ['PROGRAMFILES(X86)'], "Dofus2Beta/app/ui", moduleName))
+dstPath = op.normpath(op.join(os.environ['PROGRAMFILES(X86)'], "Dofus2Beta/app/ui", authorName + "_" + moduleName))
 
 def copyFile(filename):
 	if verbose:
